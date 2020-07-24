@@ -18,28 +18,31 @@
 	const MAX_WAIT_CYCLES=50;
 	let WAIT_CYCLES_COUNTER=0;
 
-	const waitFor = (selector, time) => {
-		console.log(selector,time);
-		var item = document.querySelector(selector);
-		if( item !=null ) {
+	const waitFor = (selectors, time) => {
+		log('DEBUG', JSON.stringify(selectors));
+		if(selectors.length < 1) { return; }
+
+		document.querySelectorAll(selectors[0]).forEach( (item) => {
 			if( typeof item.click === 'function') {
 				item.click(); // click item 
 				log('DEBUG', 'item clicked');
+				WAIT_CYCLES_COUNTER=0;
 			}else{
 				log('DEBUG','item has no click function');
 			}
-			return;
-		} else {
+		} );
+		selectors.shift();
+		
+		if(selectors.length > 0) {
 			if( WAIT_CYCLES_COUNTER >= MAX_WAIT_CYCLES) { return; }
 			WAIT_CYCLES_COUNTER++;
 			setTimeout(function() {
-				waitFor(selector, time);
+				waitFor(selectors, time);
 			}, time);
 		}
 	}
 
 	log( 'DEBUG', 'temporary: ' + temporary);
-
 	try {
 		store = await browser.storage.local.get('selectors');
 	}catch(e){
@@ -70,11 +73,11 @@
 
 		log('DEBUG', JSON.stringify(selector,null,4));
 
-		try {
-			waitFor(selector.code,100)
-		}catch(e){
-			log('WARN', 'code execution failed :' + selector.code);
-		}
+		//try {
+			waitFor(selector.code.split(';'),100)
+		//}catch(e){
+		//	log('WARN', 'code execution failed :' + selector.code);
+		//}
 	});
 
 })();
