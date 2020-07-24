@@ -12,7 +12,7 @@
   ],
   "description": "remove elements persistently",
   "icons": {
-	"128": "icon.png"
+	"292": "icon.png"
   },
   "manifest_version": 2,
   "name": "cookie-auto-accept",
