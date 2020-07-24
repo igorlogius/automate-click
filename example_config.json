@@ -58,5 +58,30 @@
         "activ": true,
         "url_regex": "9gag.com",
         "code": "button.qc-cmp-button:nth-child(2)"
+    },
+    {
+	"active": true,
+	"url_regex": "www.tarifcheck.de",
+	"code": "button.btn-primary:nth-child(3)"
+    },
+    {
+	"active": true,
+	"url_regex": "",
+	"code": ""
+    },
+    {
+	"active": true,
+	"url_regex": "weltverbesserer.de",
+	"code": "a.e-cta:nth-child(2)"
+    },
+    {
+	"active": true,
+	"url_regex": "www.heise.de",
+	"code": "#uc-btn-accept-banner"
+    },
+    {
+	"active": true,
+	"url_regex": "www.golem.de",
+	"code": "button.text1"
     }
 ]
