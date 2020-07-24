@@ -16,28 +16,39 @@
 	}
 
 	const MAX_WAIT_CYCLES=50;
-	let WAIT_CYCLES_COUNTER=0;
 
-	const waitFor = (selectors, time) => {
-		log('DEBUG', JSON.stringify(selectors));
+
+	const waitFor = (selectors, time, depth) => {
+		log('DEBUG', JSON.stringify(selectors) + "|" + depth);
+
+		if(!Array.isArray(selectors)) { return; }
+
+		if(depth >= MAX_WAIT_CYCLES){
+			selectors.shift();
+		}
+
 		if(selectors.length < 1) { return; }
 
+		let clicked = false;
 		document.querySelectorAll(selectors[0]).forEach( (item) => {
+
 			if( typeof item.click === 'function') {
 				item.click(); // click item 
 				log('DEBUG', 'item clicked');
-				WAIT_CYCLES_COUNTER=0;
+				clicked=true;
 			}else{
 				log('DEBUG','item has no click function');
 			}
 		} );
-		selectors.shift();
+
+		if(clicked === true){
+			depth = -1;
+			selectors.shift();
+		}
 		
 		if(selectors.length > 0) {
-			if( WAIT_CYCLES_COUNTER >= MAX_WAIT_CYCLES) { return; }
-			WAIT_CYCLES_COUNTER++;
 			setTimeout(function() {
-				waitFor(selectors, time);
+				waitFor(selectors, time, ++depth);
 			}, time);
 		}
 	}
@@ -74,7 +85,8 @@
 		log('DEBUG', JSON.stringify(selector,null,4));
 
 		//try {
-			waitFor(selector.code.split(';'),100)
+			let depth = 0;
+			waitFor(selector.code.split(';'),100, depth)
 		//}catch(e){
 		//	log('WARN', 'code execution failed :' + selector.code);
 		//}

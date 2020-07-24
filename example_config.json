@@ -1,87 +1,123 @@
 [
-    {
-        "activ": true,
-        "url_regex": "www.ebay.de",
-        "code": "#gdpr-banner-accept"
-    },
-    {
-        "activ": true,
-        "url_regex": "www.neckermann.de",
-        "code": ".cookieBanner__button___2FXzF"
-    },
-    {
-        "activ": true,
-        "url_regex": "www.google.de|co.uk|nl",
-        "code": "#cnsd"
-    },
-    {
-        "activ": true,
-        "url_regex": "ask.com",
-        "code": "#ccOkBtn"
-    },
-    {
-        "activ": true,
-        "url_regex": "www.msn.com",
-        "code": "button.optanon-allow-all"
-    },
-    {
-        "activ": true,
-        "url_regex": "yahoo.com",
-        "code": "button.btn:nth-child(1)"
-    },
-    {
-        "activ": true,
-        "url_regex": "twitter.com",
-        "code": "div.css-18t94o4:nth-child(2) > div:nth-child(1)"
-    },
-    {
-        "activ": true,
-        "url_regex": "linkedin.com",
-        "code": ".artdeco-global-alert__dismiss"
-    },
-    {
-        "activ": true,
-        "url_regex": "slashdot.org",
-        "code": ".cmpboxbtnyes"
-    },
-    {
-        "activ": true,
-        "url_regex": "www.fimfiction.net",
-        "code": ".drop-down-pop-up-footer > button:nth-child(1)"
-    },
-    {
-        "activ": true,
-        "url_regex": "www.paypal.com",
-        "code": "#acceptAllButton"
-    },
-    {
-        "activ": true,
-        "url_regex": "9gag.com",
-        "code": "button.qc-cmp-button:nth-child(2)"
-    },
-    {
-	"activ": true,
-	"url_regex": "www.tarifcheck.de",
-	"code": "button.btn-primary:nth-child(3)"
-    },
-    {
-	"activ": true,
-	"url_regex": "",
-	"code": ""
-    },
-    {
-	"activ": true,
-	"url_regex": "weltverbesserer.de",
-	"code": "a.e-cta:nth-child(2)"
-    },
-    {
-	"activ": true,
-	"url_regex": "www.heise.de",
-	"code": "#uc-btn-accept-banner"
-    },
-    {
-	"activ": true,
-	"url_regex": "www.golem.de",
-	"code": "button.text1"
-    }
+  {
+    "activ": true,
+    "code": ".site-info;button.spu-close-popup",
+    "url_regex": "thewalrus.ca"
+  },
+  {
+    "activ": true,
+    "code": "input.btn",
+    "url_regex": "otr.dlmirror.eu"
+  },
+  {
+    "activ": true,
+    "code": ".closeCookiesInfo",
+    "url_regex": "chomikuj.pl/"
+  },
+  {
+    "activ": true,
+    "code": "button.qc-cmp-button:nth-child(2);",
+    "url_regex": "www.trustnet.com"
+  },
+  {
+    "activ": true,
+    "code": "#gdpr-banner-accept",
+    "url_regex": "www.ebay.de"
+  },
+  {
+    "activ": true,
+    "code": ".cookieBanner__button___2FXzF",
+    "url_regex": "www.neckermann.de"
+  },
+  {
+    "activ": true,
+    "code": "#cnsd",
+    "url_regex": "www.google.de|co.uk|nl|com"
+  },
+  {
+    "activ": true,
+    "code": "#ccOkBtn",
+    "url_regex": "ask.com"
+  },
+  {
+    "activ": true,
+    "code": "button.optanon-allow-all",
+    "url_regex": "www.msn.com"
+  },
+  {
+    "activ": true,
+    "code": "button.btn:nth-child(1)",
+    "url_regex": "yahoo.com"
+  },
+  {
+    "activ": true,
+    "code": "div.css-18t94o4:nth-child(2) > div:nth-child(1)",
+    "url_regex": "twitter.com"
+  },
+  {
+    "activ": true,
+    "code": ".artdeco-global-alert__dismiss",
+    "url_regex": "linkedin.com"
+  },
+  {
+    "activ": true,
+    "code": ".cmpboxbtnyes",
+    "url_regex": "slashdot.org"
+  },
+  {
+    "activ": true,
+    "code": ".drop-down-pop-up-footer > button:nth-child(1)",
+    "url_regex": "www.fimfiction.net"
+  },
+  {
+    "activ": true,
+    "code": "#acceptAllButton",
+    "url_regex": "www.paypal.com"
+  },
+  {
+    "activ": true,
+    "code": "button.qc-cmp-button:nth-child(2)",
+    "url_regex": "9gag.com"
+  },
+  {
+    "activ": true,
+    "code": "button.btn-primary:nth-child(3)",
+    "url_regex": "www.tarifcheck.de"
+  },
+  {
+    "activ": true,
+    "code": "",
+    "url_regex": ""
+  },
+  {
+    "activ": true,
+    "code": "a.e-cta:nth-child(2)",
+    "url_regex": "weltverbesserer.de"
+  },
+  {
+    "activ": true,
+    "code": "#uc-btn-accept-banner",
+    "url_regex": "www.heise.de"
+  },
+  {
+    "activ": true,
+    "code": "button.text1",
+    "url_regex": "www.golem.de"
+  },
+  {
+    "activ": true,
+    "code": "input[name^=\"checkbox_tos_\"];a.display-block",
+    "url_regex": "www.datanyze.com"
+  },
+  {
+    "activ": true,
+    "code": "._1CZYK",
+    "url_regex": "www.immobilien.net"
+  },
+  {
+    "activ": true,
+    "code": ".ccb__button > button:nth-child(2)",
+    "url_regex": "www.singlereisen.de"
+  }
 ]
+
