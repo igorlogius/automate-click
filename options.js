@@ -118,7 +118,7 @@ const expbtn = document.getElementById('expbtn');
 expbtn.addEventListener('click', async function (evt) {
     var dl = document.createElement('a');
     var res = await browser.storage.local.get('selectors');
-    var content = JSON.stringify(res.selectors);
+    var content = JSON.stringify(res.selectors,null,4);
     //console.log(content);
     //	return;
     dl.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(content));

@@ -2,7 +2,7 @@
 (async () => {
 
 	let store;
-	const extId = 'PER';
+	const extId = 'CAA';
 	const temporary = browser.runtime.id.endsWith('@temporary-addon'); // debugging?
 
 	const log = (level, msg) => { 
@@ -23,7 +23,8 @@
 		var item = document.querySelector(selector);
 		if( item !=null ) {
 			if( typeof item.click === 'function') {
-				item.click();
+				item.click(); // click item 
+				log('DEBUG', 'item clicked');
 			}else{
 				log('DEBUG','item has no click function');
 			}
@@ -62,8 +63,7 @@
 		selector.url_regex = selector.url_regex.trim(); 
 		if(selector.url_regex === ''){ return; }
 
-		log('DEBUG', 'host:' + window.location.host);
-		if(selector.url_regex !== window.location.host){ return; }
+		if(!(new RegExp(selector.url_regex)).test(window.location.href)){ return; }
 
 		if ( typeof selector.code !== 'string' ) { return; }
 		if ( selector.code === '' ) { return; }
@@ -71,10 +71,7 @@
 		log('DEBUG', JSON.stringify(selector,null,4));
 
 		try {
-			//const gen = new Function(selector.code); // build function
 			waitFor(selector.code,100)
-			 // execute function
-			log('DEBUG', 'code executed:' + selector.code);
 		}catch(e){
 			log('WARN', 'code execution failed :' + selector.code);
 		}

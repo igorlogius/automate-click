@@ -1,2 +1,62 @@
 [
+    {
+        "activ": true,
+        "url_regex": "www.ebay.de",
+        "code": "#gdpr-banner-accept"
+    },
+    {
+        "activ": true,
+        "url_regex": "www.neckermann.de",
+        "code": ".cookieBanner__button___2FXzF"
+    },
+    {
+        "activ": true,
+        "url_regex": "www.google.de|co.uk|nl",
+        "code": "#cnsd"
+    },
+    {
+        "activ": true,
+        "url_regex": "ask.com",
+        "code": "#ccOkBtn"
+    },
+    {
+        "activ": true,
+        "url_regex": "www.msn.com",
+        "code": "button.optanon-allow-all"
+    },
+    {
+        "activ": true,
+        "url_regex": "yahoo.com",
+        "code": "button.btn:nth-child(1)"
+    },
+    {
+        "activ": true,
+        "url_regex": "twitter.com",
+        "code": "div.css-18t94o4:nth-child(2) > div:nth-child(1)"
+    },
+    {
+        "activ": true,
+        "url_regex": "linkedin.com",
+        "code": ".artdeco-global-alert__dismiss"
+    },
+    {
+        "activ": true,
+        "url_regex": "slashdot.org",
+        "code": ".cmpboxbtnyes"
+    },
+    {
+        "activ": true,
+        "url_regex": "www.fimfiction.net",
+        "code": ".drop-down-pop-up-footer > button:nth-child(1)"
+    },
+    {
+        "activ": true,
+        "url_regex": "www.paypal.com",
+        "code": "#acceptAllButton"
+    },
+    {
+        "activ": true,
+        "url_regex": "9gag.com",
+        "code": "button.qc-cmp-button:nth-child(2)"
+    }
 ]
