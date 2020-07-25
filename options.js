@@ -10,7 +10,16 @@ function createTableRow(feed) {
 
 	Object.keys(feed).sort().forEach( (key) => {
 
-		if( key === 'activ'){
+		if (key === 'delay') {
+			console.log(key);
+			var input = document.createElement('input');
+			input.className = key;
+			input.placeholder = key;
+			input.style.width = '100%';
+			input.value = feed[key] > -1? feed[key] : '';
+			input.type='number';
+			tr.insertCell().appendChild(input);
+		}else if( key === 'activ'){
 			var input = document.createElement('input');
 			input.className = key;
 			input.placeholder = key;
@@ -47,19 +56,23 @@ function createTableRow(feed) {
 }
 
 function collectConfig() {
+	console.log('collectConfig');
 	// collect configuration from DOM
 	var mainTableBody = document.getElementById('mainTableBody');
 	var feeds = [];
 	for (var row = 0; row < mainTableBody.rows.length; row++) { 
 		try {
-			var url_regex = mainTableBody.rows[row].querySelector('.url_regex').value.trim();
-			var ses = mainTableBody.rows[row].querySelector('.code').value.trim();
-			var check = mainTableBody.rows[row].querySelector('.activ').checked;
+			var url_regex = mainTableBody.rows[row].querySelector('.url_regex').value.trim() || '';
+			var ses = mainTableBody.rows[row].querySelector('.code').value.trim() || '';
+			var check = mainTableBody.rows[row].querySelector('.activ').checked || false ;
+			var delay = mainTableBody.rows[row].querySelector('.delay').value || -1;
+			console.log(delay);
 			if(url_regex !== '' && ses !== '') {
 				feeds.push({
 					'activ': check,
 					'url_regex': url_regex,
-					'code': ses
+					'code': ses,
+					'delay': delay
 				});
 			}
 		}catch(e){
@@ -98,7 +111,8 @@ async function restoreOptions() {
 		'activ': 1,
 		'code': '' ,
 		'url_regex': '',
-		'action':'save'
+		'action':'save',
+		'delay' : -1
 	});
 	var res = await browser.storage.local.get('selectors');
 	if ( !Array.isArray(res.selectors) ) { return; }
@@ -145,7 +159,7 @@ impbtn.addEventListener('input', function (evt) {
 	        reader.onload = async function(e) {
             try {
                 var config = JSON.parse(reader.result);
-		//console.log("impbtn", config);
+		console.log("impbtn", config);
 		await browser.storage.local.set({ 'selectors': config});
 		document.querySelector("form").submit();
             } catch (e) {

@@ -3,6 +3,8 @@
 
 	let store;
 	const extId = 'CAA';
+	const MAX_WAIT_CYCLES = 500;
+
 	const temporary = browser.runtime.id.endsWith('@temporary-addon'); // debugging?
 
 	const log = (level, msg) => { 
@@ -15,23 +17,17 @@
 		}
 	}
 
-	const MAX_WAIT_CYCLES=50;
-
-
 	const waitFor = (selectors, time, depth) => {
 		log('DEBUG', JSON.stringify(selectors) + "|" + depth);
 
 		if(!Array.isArray(selectors)) { return; }
 
-		if(depth >= MAX_WAIT_CYCLES){
-			selectors.shift();
-		}
+		if(depth >= MAX_WAIT_CYCLES){ selectors.shift(); } // max_cycles goto next element
 
 		if(selectors.length < 1) { return; }
 
 		let clicked = false;
 		document.querySelectorAll(selectors[0]).forEach( (item) => {
-
 			if( typeof item.click === 'function') {
 				item.click(); // click item 
 				log('DEBUG', 'item clicked');
@@ -45,7 +41,7 @@
 			depth = -1;
 			selectors.shift();
 		}
-		
+
 		if(selectors.length > 0) {
 			setTimeout(function() {
 				waitFor(selectors, time, ++depth);
@@ -77,19 +73,23 @@
 		selector.url_regex = selector.url_regex.trim(); 
 		if(selector.url_regex === ''){ return; }
 
-		if(!(new RegExp(selector.url_regex)).test(window.location.href)){ return; }
+		if(!(new RegExp(selector.url_regex, 'g')).test(window.location.href)){ return; }
+
+		console.log("href: " + window.location.href);
 
 		if ( typeof selector.code !== 'string' ) { return; }
 		if ( selector.code === '' ) { return; }
 
 		log('DEBUG', JSON.stringify(selector,null,4));
 
-		//try {
-			let depth = 0;
-			waitFor(selector.code.split(';'),100, depth)
-		//}catch(e){
-		//	log('WARN', 'code execution failed :' + selector.code);
-		//}
+		try {
+			setTimeout(function() {
+				let depth = 0;
+				waitFor(selector.code.split(';'),250, depth)
+			},selector.delay || 3000); // wait for pages with annoying transition elements
+		}catch(e){
+			log('WARN', 'code execution failed :' + selector.code + " delay: " + selectors.delay);
+		}
 	});
 
 })();
