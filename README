@@ -3,18 +3,18 @@
 # Details
 # https://addons.mozilla.org/en-US/firefox/addon/cookie-auto-accept/
 
+# check dependencies
 MISSING_REQ=0
 for req in mktemp wget unzip zip grep cut date;do
 	type $req >/dev/null 2>&1 || { echo >&2 "Missing dependency: $req"; MISSING_REQ=1; }
 done
-
 [ $MISSING_REQ -ne 0 ] && { echo "Aborting because of missing dependency"; exit 1; }
 
 # create tmp storage
 ZIPFILE=$(mktemp)
 EXTRDIR=$(mktemp -d)
 
-# download
+# download latest source
 wget -q --show-progress 'https://github.com/igorlogius/cookie-auto-accept/archive/master.zip' -O $ZIPFILE
 
 # extract without paths and README and example_config.json
@@ -27,6 +27,6 @@ zip -X -j $XPI $EXTRDIR/*
 # remove tmp storage
 rm -f $EXTRDIR/* && rmdir $EXTRDIR/
 
-# show conent of xpi
+# show content of xpi
 unzip -l $XPI
 
