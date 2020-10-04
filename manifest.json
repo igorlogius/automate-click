@@ -2,18 +2,18 @@
   "author": "igorlogius",
   "content_scripts": [
     {
+      "all_frames": true,
       "js": [
         "content-script.js"
       ],
       "matches": [
         "<all_urls>"
-      ],
-      "all_frames": true
+      ]
     }
   ],
   "description": "remove elements persistently",
   "icons": {
-	"292": "icon.png"
+    "292": "icon.png"
   },
   "manifest_version": 2,
   "name": "cookie-auto-accept",
