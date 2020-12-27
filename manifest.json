@@ -11,7 +11,7 @@
       ]
     }
   ],
-  "description": "remove elements persistently",
+  "description": "automate click actions when opening a website",
   "icons": {
     "292": "icon.png"
   },
@@ -23,5 +23,5 @@
   "permissions": [
     "storage"
   ],
-  "version": "1.2.0"
+  "version": "1.2.1"
 }

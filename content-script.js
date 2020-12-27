@@ -75,7 +75,7 @@
 
 		if(!(new RegExp(selector.url_regex, 'g')).test(window.location.href)){ return; }
 
-		console.log("href: " + window.location.href);
+		log('INFO', window.location.href);
 
 		if ( typeof selector.code !== 'string' ) { return; }
 		if ( selector.code === '' ) { return; }
@@ -86,7 +86,7 @@
 			setTimeout(function() {
 				let depth = 0;
 				waitFor(selector.code.split(';'),250, depth)
-			},selector.delay || 3000); // wait for pages with annoying transition elements
+			},selector.delay || 3000); // wait delay
 		}catch(e){
 			log('WARN', 'code execution failed :' + selector.code + " delay: " + selectors.delay);
 		}
