@@ -16,7 +16,7 @@
     "292": "icon.png"
   },
   "manifest_version": 2,
-  "name": "cookie-auto-accept",
+  "name": "automate-click",
   "options_ui": {
     "page": "options.html"
   },

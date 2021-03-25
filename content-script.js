@@ -1,9 +1,14 @@
 
 (async () => {
 
-	let store;
-	const extId = 'CAA';
-	const MAX_WAIT_CYCLES = 500;
+	if (typeof window.automateclick_hasRun !== 'undefined'){
+		return;
+	}
+	window.automateclick_hasRun = true;
+
+	let store = {};
+	const extId = 'auto-click';
+	const MAX_WAIT_CYCLES = 50;
 
 	const temporary = browser.runtime.id.endsWith('@temporary-addon'); // debugging?
 
@@ -18,7 +23,7 @@
 	}
 
 	const waitFor = (selectors, time, depth) => {
-		log('DEBUG', JSON.stringify(selectors) + "|" + depth);
+		//log('debug', JSON.stringify(selectors) + "|" + depth);
 
 		if(!Array.isArray(selectors)) { return; }
 
@@ -30,10 +35,10 @@
 		document.querySelectorAll(selectors[0]).forEach( (item) => {
 			if( typeof item.click === 'function') {
 				item.click(); // click item 
-				log('DEBUG', 'item clicked');
+				log('debug', 'item clicked');
 				clicked=true;
 			}else{
-				log('DEBUG','item has no click function');
+				log('debug','item has no click function');
 			}
 		} );
 
@@ -49,11 +54,16 @@
 		}
 	}
 
-	log( 'DEBUG', 'temporary: ' + temporary);
+	log( 'debug', 'temporary: ' + temporary);
 	try {
 		store = await browser.storage.local.get('selectors');
 	}catch(e){
 		log('ERROR', 'access to rules storage failed');
+		return;
+	}
+
+	if ( typeof store.selectors !== 'object' ) { 
+		log('ERROR', 'rules selectors not available');
 		return;
 	}
 
@@ -63,6 +73,8 @@
 	}
 
 	store.selectors.forEach( (selector) => {
+
+		console.log(JSON.stringify(selector));
 
 		// check activ
 		if(typeof selector.activ !== 'boolean') { return; }
@@ -80,7 +92,7 @@
 		if ( typeof selector.code !== 'string' ) { return; }
 		if ( selector.code === '' ) { return; }
 
-		log('DEBUG', JSON.stringify(selector,null,4));
+		log('debug', JSON.stringify(selector,null,4));
 
 		try {
 			setTimeout(function() {

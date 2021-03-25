@@ -48,7 +48,9 @@ function createTableRow(feed) {
 
 	var button;
 	if(feed.action === 'save'){
-		button = createButton("Save", "saveButton", function() {}, true );
+		button = createButton("Save", "saveButton", function() {
+			
+		}, true );
 	}else{
 		button = createButton("Delete", "deleteButton", function() { deleteRow(tr); }, false );
 	}

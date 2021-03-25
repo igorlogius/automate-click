@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Details
-# https://addons.mozilla.org/en-US/firefox/addon/cookie-auto-accept/
+ID="automate-click"
+BRANCH="master"
 
 # check dependencies
 MISSING_REQ=0
@@ -15,13 +15,13 @@ ZIPFILE=$(mktemp)
 EXTRDIR=$(mktemp -d)
 
 # download latest source
-wget -q --show-progress 'https://github.com/igorlogius/cookie-auto-accept/archive/master.zip' -O $ZIPFILE
+wget -q --show-progress "https://github.com/igorlogius/$ID/archive/$BRANCH.zip" -O $ZIPFILE
 
 # extract without paths and README and example_config.json
 unzip -j $ZIPFILE -d $EXTRDIR -x "*/README" "*/example_config.json"
 
 # re-pack as xpi (zip) without paths and extended file attributes 
-XPI="cookie-auto-accept-$(grep '"version"' $EXTRDIR/manifest.json |cut -d'"' -f4)-$(date '+%F_%T').xpi" 
+XPI="$ID-$(grep '"version"' $EXTRDIR/manifest.json |cut -d'"' -f4)-$(date '+%F_%T').xpi" 
 zip -X -j $XPI $EXTRDIR/*
 
 # remove tmp storage
@@ -30,3 +30,4 @@ rm -f $EXTRDIR/* && rmdir $EXTRDIR/
 # show content of xpi
 unzip -l $XPI
 
+echo "Homepage:  https://addons.mozilla.org/en-US/firefox/addon/$ID/"
