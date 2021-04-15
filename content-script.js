@@ -74,7 +74,7 @@
 
 	store.selectors.forEach( (selector) => {
 
-		console.log(JSON.stringify(selector));
+		//console.log(JSON.stringify(selector));
 
 		// check activ
 		if(typeof selector.activ !== 'boolean') { return; }
