@@ -85,7 +85,7 @@
 		selector.url_regex = selector.url_regex.trim(); 
 		if(selector.url_regex === ''){ return; }
 
-		if(!(new RegExp(selector.url_regex, 'g')).test(window.location.href)){ return; }
+		if(!(new RegExp(selector.url_regex)).test(window.location.href)){ return; }
 
 		log('INFO', window.location.href);
 
