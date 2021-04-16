@@ -1,363 +1,123 @@
 [
   {
     "activ": true,
-    "code": ".btn",
-    "delay": "0",
-    "url_regex": "kochbar.de"
-  },
-  {
-    "activ": true,
     "code": "#uc-btn-accept-banner",
     "delay": "0",
-    "url_regex": "marktguru.at"
+    "url_regex": "^https:\\/\\/marktguru\\.at.*"
   },
   {
     "activ": true,
     "code": ".cc_btn",
     "delay": "0",
-    "url_regex": "mararathi.tv"
+    "url_regex": "^https:\\/\\/mararathi\\.tv.*"
   },
   {
     "activ": true,
     "code": "#onetrust-accept-btn-handler",
     "delay": "0",
-    "url_regex": "noisli.com"
+    "url_regex": "^https:\\/\\/noisli\\.com.*"
   },
   {
     "activ": true,
     "code": "#cookie-ntc__accept",
     "delay": "0",
-    "url_regex": "opswat.com"
-  },
-  {
-    "activ": true,
-    "code": "body > div:nth-child(15) > div:nth-child(2) > div:nth-child(1)",
-    "delay": "0",
-    "url_regex": "steadyhealth.com"
+    "url_regex": "^https:\\/\\/opswat\\.com.*"
   },
   {
     "activ": true,
     "code": "#dismiss-cookie",
     "delay": "0",
-    "url_regex": "www.freeimages.com"
+    "url_regex": "^https:\\/\\/www.freeimages\\.com.*"
   },
   {
     "activ": true,
     "code": ".pl-accept",
     "delay": "0",
-    "url_regex": "planet.com"
+    "url_regex": "^https:\\/\\/planet\\.com.*"
   },
   {
     "activ": true,
     "code": "#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll",
     "delay": "0",
-    "url_regex": "datafox.de"
+    "url_regex": "^https:\\/\\/www\\.datafox\\.de.*"
   },
   {
     "activ": true,
     "code": "#ez-all-cookies",
     "delay": "0",
-    "url_regex": "thewindowsclub.com"
-  },
-  {
-    "activ": true,
-    "code": "button.mediumSize_c215f:nth-child(1) > span:nth-child(1)",
-    "delay": "0",
-    "url_regex": "producthunt.com"
+    "url_regex": "^https:\\/\\/www\\.thewindowsclub\\.com.*"
   },
   {
     "activ": true,
     "code": "#agree",
     "delay": "0",
-    "url_regex": "hindustantimes.com"
-  },
-  {
-    "activ": true,
-    "code": "button.is-action:nth-child(2)",
-    "delay": "0",
-    "url_regex": "jsonformatter.curiousconcept.com"
+    "url_regex": "^https:\\/\\/hindustantimes\\.com.*"
   },
   {
     "activ": true,
     "code": ".banner__close",
     "delay": "0",
-    "url_regex": "www.worthpoint.com"
-  },
-  {
-    "activ": true,
-    "code": "body > div:nth-child(1) > a:nth-child(1)",
-    "delay": "0",
-    "url_regex": "www.smartcockpit.com"
-  },
-  {
-    "activ": true,
-    "code": ".cookie-warning__close > img:nth-child(1)",
-    "delay": "0",
-    "url_regex": "www.gezondheidaanhuis.n"
+    "url_regex": "^https:\\/\\/www\\.worthpoint\\.com.*"
   },
   {
     "activ": true,
     "code": "button.btn",
     "delay": "0",
-    "url_regex": "grafana.com"
+    "url_regex": "^https:\\/\\/grafana\\.com.*"
   },
   {
     "activ": true,
     "code": "div.gdpr-button:nth-child(3)",
     "delay": "0",
-    "url_regex": "digisport.ro"
-  },
-  {
-    "activ": true,
-    "code": "span.close:nth-child(2)",
-    "delay": "0",
-    "url_regex": "liberte.pl"
-  },
-  {
-    "activ": true,
-    "code": "div.tracking-popup:nth-child(1) > button:nth-child(3)",
-    "delay": "0",
-    "url_regex": "works-hub.com"
+    "url_regex": "^https:\\/\\/www\\.digisport\\.ro.*"
   },
   {
     "activ": true,
     "code": "#close-privacy-popup",
     "delay": "0",
-    "url_regex": "radarbox24.com"
-  },
-  {
-    "activ": true,
-    "code": "a.btn-s",
-    "delay": "0",
-    "url_regex": "neilpatel.com"
-  },
-  {
-    "activ": true,
-    "code": ".ui-buttonset",
-    "delay": "0",
-    "url_regex": "find-dvd.co.uk"
+    "url_regex": "^https:\\/\\/www\\.radarbox24\\.com.*"
   },
   {
     "activ": true,
     "code": "button.optanon-allow-all",
     "delay": "0",
-    "url_regex": "roosterteeth.com"
-  },
-  {
-    "activ": true,
-    "code": "button.btn:nth-child(2)",
-    "delay": "0",
-    "url_regex": "jobscout24.ch"
-  },
-  {
-    "activ": true,
-    "code": "#CybotCookiebotDialogBodyLevelButtonAccept",
-    "delay": "0",
-    "url_regex": "ehl.de"
-  },
-  {
-    "activ": true,
-    "code": "#AcceptReload",
-    "delay": "0",
-    "url_regex": "logicsupply.com"
-  },
-  {
-    "activ": true,
-    "code": "#tos_agree",
-    "delay": "0",
-    "url_regex": "archiveofourown.org"
-  },
-  {
-    "activ": true,
-    "code": "#cx_bottom_close",
-    "delay": "0",
-    "url_regex": "msnbc.com"
-  },
-  {
-    "activ": true,
-    "code": ".heroku-cookie-banner__dismiss",
-    "delay": "0",
-    "url_regex": "heroku.com"
-  },
-  {
-    "activ": true,
-    "code": ".oo-ui-labelElement-label",
-    "delay": "0",
-    "url_regex": "pokewiki.de"
-  },
-  {
-    "activ": true,
-    "code": ".close",
-    "delay": "0",
-    "url_regex": "recurly.com"
-  },
-  {
-    "activ": true,
-    "code": "._1DrOO",
-    "delay": "0",
-    "url_regex": "lyricsmode.com"
-  },
-  {
-    "activ": true,
-    "code": "#siteAlertAccept",
-    "delay": "0",
-    "url_regex": "avid.com"
-  },
-  {
-    "activ": true,
-    "code": "button.utwente-cookiebar__button:nth-child(4)",
-    "delay": "0",
-    "url_regex": "www.utwente.nl"
-  },
-  {
-    "activ": true,
-    "code": ".qc-cmp-button",
-    "delay": "0",
-    "url_regex": "fantasyfootballscout.co.uk"
-  },
-  {
-    "activ": true,
-    "code": "button.message-component:nth-child(2)",
-    "delay": "0",
-    "url_regex": "cdn.privacy-mgmt.com"
+    "url_regex": "^https:\\/\\/roosterteeth\\.com.*"
   },
   {
     "activ": true,
     "code": "button.spu-close-popup",
     "delay": "3000",
-    "url_regex": "thewalrus.ca"
-  },
-  {
-    "activ": true,
-    "code": "input.btn",
-    "delay": "0",
-    "url_regex": "otr.dlmirror.eu"
-  },
-  {
-    "activ": true,
-    "code": ".closeCookiesInfo",
-    "delay": "0",
-    "url_regex": "chomikuj.pl/"
-  },
-  {
-    "activ": true,
-    "code": "button.qc-cmp-button:nth-child(2);",
-    "delay": "0",
-    "url_regex": "www.trustnet.com"
+    "url_regex": "^https:\\/\\/thewalrus\\.ca.*"
   },
   {
     "activ": true,
     "code": "#gdpr-banner-accept",
     "delay": "0",
-    "url_regex": "www.ebay.de"
-  },
-  {
-    "activ": true,
-    "code": ".cookieBanner__button___2FXzF",
-    "delay": "0",
-    "url_regex": "www.neckermann.de"
+    "url_regex": "^https:\\/\\/www\\.ebay\\.de.*"
   },
   {
     "activ": true,
     "code": "#cnsd",
     "delay": "0",
-    "url_regex": "www.google.de|co.uk|nl|com"
+    "url_regex": "^https:\\/\\/www\\.google\\.de.*"
   },
   {
     "activ": true,
     "code": "#ccOkBtn",
     "delay": "0",
-    "url_regex": "ask.com"
-  },
-  {
-    "activ": true,
-    "code": "button.optanon-allow-all",
-    "delay": "0",
-    "url_regex": "www.msn.com"
-  },
-  {
-    "activ": true,
-    "code": "button.btn:nth-child(1)",
-    "delay": "0",
-    "url_regex": "yahoo.com"
-  },
-  {
-    "activ": true,
-    "code": "div.css-18t94o4:nth-child(2) > div:nth-child(1)",
-    "delay": "0",
-    "url_regex": "twitter.com"
-  },
-  {
-    "activ": true,
-    "code": ".artdeco-global-alert__dismiss",
-    "delay": "0",
-    "url_regex": "linkedin.com"
+    "url_regex": "^https:\\/\\/ask\\.com.*"
   },
   {
     "activ": true,
     "code": ".cmpboxbtnyes",
     "delay": "0",
-    "url_regex": "slashdot.org"
-  },
-  {
-    "activ": true,
-    "code": ".drop-down-pop-up-footer > button:nth-child(1)",
-    "delay": "0",
-    "url_regex": "www.fimfiction.net"
+    "url_regex": "^https:\\/\\/slashdot\\.org.*"
   },
   {
     "activ": true,
     "code": "#acceptAllButton",
     "delay": "0",
-    "url_regex": "www.paypal.com"
-  },
-  {
-    "activ": true,
-    "code": "button.qc-cmp-button:nth-child(2)",
-    "delay": "0",
-    "url_regex": "9gag.com"
-  },
-  {
-    "activ": true,
-    "code": "button.btn-primary:nth-child(3)",
-    "delay": "0",
-    "url_regex": "www.tarifcheck.de"
-  },
-  {
-    "activ": true,
-    "code": "a.e-cta:nth-child(2)",
-    "delay": "0",
-    "url_regex": "weltverbesserer.de"
-  },
-  {
-    "activ": true,
-    "code": "#uc-btn-accept-banner",
-    "delay": "0",
-    "url_regex": "www.heise.de"
-  },
-  {
-    "activ": true,
-    "code": "button.text1",
-    "delay": "0",
-    "url_regex": "www.golem.de"
-  },
-  {
-    "activ": true,
-    "code": "input[name^=\"checkbox_tos_\"];a.display-block",
-    "delay": "0",
-    "url_regex": "www.datanyze.com"
-  },
-  {
-    "activ": true,
-    "code": "._1CZYK",
-    "delay": "0",
-    "url_regex": "www.immobilien.net"
-  },
-  {
-    "activ": true,
-    "code": ".ccb__button > button:nth-child(2)",
-    "delay": "0",
-    "url_regex": "www.singlereisen.de"
+    "url_regex": "^https:\\/\\/www\\.paypal\\.com.*"
   }
 ]
 
