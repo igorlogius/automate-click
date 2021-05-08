@@ -11,11 +11,11 @@ function createTableRow(feed) {
 	Object.keys(feed).sort().forEach( (key) => {
 
 		if (key === 'delay') {
-			console.log(key);
+			//console.log(key);
 			var input = document.createElement('input');
 			input.className = key;
-			input.placeholder = key;
-			input.style.width = '100%';
+			input.placeholder = '0';
+			input.style.width = '95%';
 			input.value = feed[key] > -1? feed[key] : '';
 			input.type='number';
 			tr.insertCell().appendChild(input);
@@ -23,7 +23,7 @@ function createTableRow(feed) {
 			var input = document.createElement('input');
 			input.className = key;
 			input.placeholder = key;
-			input.style.width = '100%';
+			input.style.width = '95%';
 			input.type='checkbox';
 			input.checked= (typeof feed[key] === 'boolean'? feed[key]: true);
 			tr.insertCell().appendChild(input);
@@ -31,16 +31,16 @@ function createTableRow(feed) {
 		}else if( key === 'code'){
 			var input = document.createElement('input');
 			input.className = key;
-			input.placeholder = key;
-			input.style.width = '100%';
+			input.placeholder = 'css_selector';
+			input.style.width = '95%';
 			input.value = feed[key];
 			tr.insertCell().appendChild(input);
-		}else
+		}else 
 			if( key !== 'action'){
 				var input = document.createElement('input');
 				input.className = key;
 				input.placeholder = key;
-				input.style.width = '100%';
+				input.style.width = '95%';
 				input.value = feed[key];
 				tr.insertCell().appendChild(input);
 			}
@@ -48,7 +48,7 @@ function createTableRow(feed) {
 
 	var button;
 	if(feed.action === 'save'){
-		button = createButton("Save", "saveButton", function() {
+		button = createButton("Create", "saveButton", function() {
 			
 		}, true );
 	}else{
@@ -58,7 +58,7 @@ function createTableRow(feed) {
 }
 
 function collectConfig() {
-	console.log('collectConfig');
+	//console.log('collectConfig');
 	// collect configuration from DOM
 	var mainTableBody = document.getElementById('mainTableBody');
 	var feeds = [];
@@ -66,15 +66,17 @@ function collectConfig() {
 		try {
 			var url_regex = mainTableBody.rows[row].querySelector('.url_regex').value.trim() || '';
 			var ses = mainTableBody.rows[row].querySelector('.code').value.trim() || '';
+			var desc = mainTableBody.rows[row].querySelector('.annotation').value.trim() || '';
 			var check = mainTableBody.rows[row].querySelector('.activ').checked || false ;
-			var delay = mainTableBody.rows[row].querySelector('.delay').value || -1;
-			console.log(delay);
+			var delay = mainTableBody.rows[row].querySelector('.delay').value || 0;
+			//console.log(delay);
 			if(url_regex !== '' && ses !== '') {
 				feeds.push({
 					'activ': check,
+					'annotation': desc, 
 					'url_regex': url_regex,
 					'code': ses,
-					'delay': delay
+					'delay': ( typeof delay !== 'number' || delay < 0)? 0 : delay
 				});
 			}
 		}catch(e){
@@ -111,6 +113,7 @@ async function restoreOptions() {
 	var mainTableBody = document.getElementById('mainTableBody');
 	createTableRow({
 		'activ': 1,
+		'annotation': '',
 		'code': '' ,
 		'url_regex': '',
 		'action':'save',
@@ -120,6 +123,9 @@ async function restoreOptions() {
 	if ( !Array.isArray(res.selectors) ) { return; }
 	res.selectors.forEach( (selector) => {
 		selector.action = 'delete'
+		if(typeof selector.annotation !== 'string') {
+			selector.annotation = '';
+		}
 		createTableRow(selector);
 	});
 }
@@ -161,7 +167,7 @@ impbtn.addEventListener('input', function (evt) {
 	        reader.onload = async function(e) {
             try {
                 var config = JSON.parse(reader.result);
-		console.log("impbtn", config);
+		//console.log("impbtn", config);
 		await browser.storage.local.set({ 'selectors': config});
 		document.querySelector("form").submit();
             } catch (e) {
