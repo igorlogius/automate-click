@@ -4,6 +4,12 @@ function deleteRow(rowTr) {
 	mainTableBody.removeChild(rowTr);
 }
 
+function isNumeric(str) {
+  if (typeof str != "string") {return false;} // we only process strings!
+  return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+         !isNaN(parseInt(str)) // ...and ensure strings of whitespace fail
+}
+
 function createTableRow(feed) {
 	var mainTableBody = document.getElementById('mainTableBody');
 	var tr = mainTableBody.insertRow();
@@ -16,8 +22,9 @@ function createTableRow(feed) {
 			input.className = key;
 			input.placeholder = '0';
 			input.style.width = '95%';
-			input.value = feed[key] > -1? feed[key] : '';
+			input.value = feed[key] > -1? feed[key] : 0;
 			input.type='number';
+			input.min=0;
 			tr.insertCell().appendChild(input);
 		}else if( key === 'activ'){
 			var input = document.createElement('input');
@@ -65,12 +72,13 @@ function collectConfig() {
 	for (var row = 0; row < mainTableBody.rows.length; row++) { 
 		try {
 			var url_regex = mainTableBody.rows[row].querySelector('.url_regex').value.trim() || '';
-			var ses = mainTableBody.rows[row].querySelector('.code').value.trim() || '';
+			var ses = mainTableBody.rows[row].querySelector('.code').value || '';
 			var desc = mainTableBody.rows[row].querySelector('.annotation').value.trim() || '';
 			var check = mainTableBody.rows[row].querySelector('.activ').checked || false ;
 			var delay = mainTableBody.rows[row].querySelector('.delay').value || 0;
 			//console.log(delay);
-			if(url_regex !== '' && ses !== '') {
+			if(url_regex !== '' && ses !== '' && isNumeric(delay)) {
+				delay = parseInt(delay);
 				feeds.push({
 					'activ': check,
 					'annotation': desc, 
@@ -78,6 +86,7 @@ function collectConfig() {
 					'code': ses,
 					'delay': ( typeof delay !== 'number' || delay < 0)? 0 : delay
 				});
+				console.log(feeds);
 			}
 		}catch(e){
 			console.error(e);
