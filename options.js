@@ -86,7 +86,7 @@ function collectConfig() {
 					'code': ses,
 					'delay': ( typeof delay !== 'number' || delay < 0)? 0 : delay
 				});
-				console.log(feeds);
+				//console.log(feeds);
 			}
 		}catch(e){
 			console.error(e);
