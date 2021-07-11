@@ -7,7 +7,7 @@
 	window.automateclick_hasRun = true;
 
 	let store = {};
-	const extId = 'auto-click';
+	const extId = 'automate-click';
 	const MAX_WAIT_CYCLES = 50;
 
 	const temporary = browser.runtime.id.endsWith('@temporary-addon'); // debugging?
