@@ -22,7 +22,7 @@
 		}
 	}
 
-	const waitFor = (selectors, time, depth) => {
+	const waitFor = (selectors, depth) => {
 		//log('debug', JSON.stringify(selectors) + "|" + depth);
 
 		if(!Array.isArray(selectors.code)) { return; }
@@ -43,23 +43,23 @@
 			}
 		} );
 
-		if(selectors.recurring === true) {
+		if(selectors.repeat > 0) {
 			let selector = JSON.parse(JSON.stringify(selectors));
 			selector.code = [selector.code[0]];
 			setTimeout(function() {
-				waitFor(selector, time, 0);
-			}, time);
+				waitFor(selector, 0);
+			}, selector.repeat);
 		}
 
-		if(selectors.recurring === true || clicked === true){
+		if(selectors.repeat > 0 || clicked === true){
 			depth = -1;
 			selectors.code.shift();
 		}
 
 		if(selectors.code.length > 0) {
 			setTimeout(function() {
-				waitFor(selectors, time, ++depth);
-			}, time);
+				waitFor(selectors, ++depth);
+			}, 250);
 		}
 	}
 
@@ -108,8 +108,8 @@
 		try {
 			setTimeout(function() {
 				let depth = 0;
-				waitFor(selector,250, depth)
-			},selector.delay || 3000); // wait delay
+				waitFor(selector, depth)
+			}, selector.delay || 3000); // wait delay
 		}catch(e){
 			log('WARN', 'code execution failed :' + selector.code + " delay: " + selectors.delay);
 		}

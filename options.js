@@ -39,10 +39,11 @@ function createTableRow(feed) {
 				input.type='number';
 				input.min=0;
 				break;
-			case 'recurring':
-				input.placeholder = key;
-				input.type='checkbox';
-				input.checked= (typeof feed[key] === 'boolean'? feed[key]: false);
+			case 'repeat':
+				input.placeholder = '0';
+				input.value = feed[key] > -1? feed[key] : 0;
+				input.type='number';
+				input.min=0;
 				break;
 			case 'url_regex':
 				input.placeholder = 'url_regex';
@@ -74,7 +75,7 @@ function collectConfig() {
 			var ses = mainTableBody.rows[row].querySelector('.code').value || '';
 			var desc = mainTableBody.rows[row].querySelector('.annotation').value.trim() || '';
 			var check = mainTableBody.rows[row].querySelector('.activ').checked || false ;
-			var rec = mainTableBody.rows[row].querySelector('.recurring').checked || false ;
+			var repeat = mainTableBody.rows[row].querySelector('.repeat').value || 0 ;
 			var delay = mainTableBody.rows[row].querySelector('.delay').value || 0;
 			//console.log(delay);
 			if(url_regex !== '' && ses !== '' && isNumeric(delay)) {
@@ -85,7 +86,7 @@ function collectConfig() {
 					'url_regex': url_regex,
 					'code': ses,
 					'delay': ( typeof delay !== 'number' || delay < 0)? 0 : delay,
-					'recurring': rec
+					'repeat': repeat
 				});
 				//console.log(feeds);
 			}
@@ -128,7 +129,7 @@ async function restoreOptions() {
 		'url_regex': '',
 		'action':'save',
 		'delay' : -1,
-		'recurring': 0,
+		'repeat': -1,
 	});
 	var res = await browser.storage.local.get('selectors');
 	if ( !Array.isArray(res.selectors) ) { return; }
