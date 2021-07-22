@@ -25,14 +25,15 @@
 	const waitFor = (selectors, time, depth) => {
 		//log('debug', JSON.stringify(selectors) + "|" + depth);
 
-		if(!Array.isArray(selectors)) { return; }
+		if(!Array.isArray(selectors.code)) { return; }
 
-		if(depth >= MAX_WAIT_CYCLES){ selectors.shift(); } // max_cycles goto next element
+		if(depth >= MAX_WAIT_CYCLES){ selectors.code.shift(); } // max_cycles goto next element
 
-		if(selectors.length < 1) { return; }
+		if(selectors.code.length < 1) { return; }
 
 		let clicked = false;
-		document.querySelectorAll(selectors[0]).forEach( (item) => {
+
+		document.querySelectorAll(selectors.code[0]).forEach( (item) => {
 			if( typeof item.click === 'function') {
 				item.click(); // click item 
 				log('debug', 'item clicked');
@@ -42,12 +43,20 @@
 			}
 		} );
 
-		if(clicked === true){
-			depth = -1;
-			selectors.shift();
+		if(selectors.recurring === true) {
+			let selector = JSON.parse(JSON.stringify(selectors));
+			selector.code = [selector.code[0]];
+			setTimeout(function() {
+				waitFor(selector, time, 0);
+			}, time);
 		}
 
-		if(selectors.length > 0) {
+		if(selectors.recurring === true || clicked === true){
+			depth = -1;
+			selectors.code.shift();
+		}
+
+		if(selectors.code.length > 0) {
 			setTimeout(function() {
 				waitFor(selectors, time, ++depth);
 			}, time);
@@ -92,12 +101,14 @@
 		if ( typeof selector.code !== 'string' ) { return; }
 		if ( selector.code === '' ) { return; }
 
+		selector.code = selector.code.split(';');
+
 		log('debug', JSON.stringify(selector,null,4));
 
 		try {
 			setTimeout(function() {
 				let depth = 0;
-				waitFor(selector.code.split(';'),250, depth)
+				waitFor(selector,250, depth)
 			},selector.delay || 3000); // wait delay
 		}catch(e){
 			log('WARN', 'code execution failed :' + selector.code + " delay: " + selectors.delay);
