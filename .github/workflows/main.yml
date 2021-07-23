@@ -50,10 +50,16 @@ jobs:
 
           # re-pack as xpi (zip) without paths and extended file attributes 
           XPI="$ID-$(grep '"version"' $EXTRDIR/manifest.json |cut -d'"' -f4)-$(date '+%F_%T').xpi" 
+          
+          echo $XPI
+          
           zip -X -j $XPI $EXTRDIR/*
           
           # expose xpi name as artifact name
           echo "ARTNAME=$XPI" >> $GITHUB_ENV;
+          
+          
+          
           echo "DATE=$(date +%F_%H-%M)" >> $GITHUB_ENV;
         
       - name: create release
