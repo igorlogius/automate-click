@@ -16,48 +16,48 @@ function createTableRow(feed) {
 
 	Object.keys(feed).sort().forEach( (key) => {
 
-		if (key === 'delay') {
-			//console.log(key);
-			var input = document.createElement('input');
-			input.className = key;
-			input.placeholder = '0';
-			input.style.width = '95%';
-			input.value = feed[key] > -1? feed[key] : 0;
-			input.type='number';
-			input.min=0;
-			tr.insertCell().appendChild(input);
-		}else if( key === 'activ'){
-			var input = document.createElement('input');
-			input.className = key;
-			input.placeholder = key;
-			input.style.width = '95%';
-			input.type='checkbox';
-			input.checked= (typeof feed[key] === 'boolean'? feed[key]: true);
-			tr.insertCell().appendChild(input);
-
-		}else if( key === 'code'){
-			var input = document.createElement('input');
-			input.className = key;
-			input.placeholder = 'css_selector';
-			input.style.width = '95%';
-			input.value = feed[key];
-			tr.insertCell().appendChild(input);
-		}else 
-			if( key !== 'action'){
-				var input = document.createElement('input');
-				input.className = key;
+		var input = document.createElement('input');
+		input.className = key;
+		input.style.width = '95%';
+		switch (key) {
+			case 'activ':
 				input.placeholder = key;
-				input.style.width = '95%';
+				input.type='checkbox';
+				input.checked= (typeof feed[key] === 'boolean'? feed[key]: true);
+				break;
+			case 'annotation':
+				input.placeholder = key;
 				input.value = feed[key];
-				tr.insertCell().appendChild(input);
-			}
+				break;
+			case 'code':
+				input.placeholder = 'css_selector';
+				input.value = feed[key];
+				break;
+			case 'delay':
+				input.placeholder = '0';
+				input.value = feed[key] > -1? feed[key] : 0;
+				input.type='number';
+				input.min=0;
+				break;
+			case 'repeat':
+				input.placeholder = '0';
+				input.value = feed[key] > -1? feed[key] : 0;
+				input.type='number';
+				input.min=0;
+				break;
+			case 'url_regex':
+				input.placeholder = 'url_regex';
+				input.value = feed[key];
+				break;
+			default:
+				return;
+		}
+		tr.insertCell().appendChild(input);
 	});
 
 	var button;
 	if(feed.action === 'save'){
-		button = createButton("Create", "saveButton", function() {
-			
-		}, true );
+		button = createButton("Create", "saveButton", function() {}, true );
 	}else{
 		button = createButton("Delete", "deleteButton", function() { deleteRow(tr); }, false );
 	}
@@ -75,6 +75,7 @@ function collectConfig() {
 			var ses = mainTableBody.rows[row].querySelector('.code').value || '';
 			var desc = mainTableBody.rows[row].querySelector('.annotation').value.trim() || '';
 			var check = mainTableBody.rows[row].querySelector('.activ').checked || false ;
+			var repeat = mainTableBody.rows[row].querySelector('.repeat').value || 0 ;
 			var delay = mainTableBody.rows[row].querySelector('.delay').value || 0;
 			//console.log(delay);
 			if(url_regex !== '' && ses !== '' && isNumeric(delay)) {
@@ -84,7 +85,8 @@ function collectConfig() {
 					'annotation': desc, 
 					'url_regex': url_regex,
 					'code': ses,
-					'delay': ( typeof delay !== 'number' || delay < 0)? 0 : delay
+					'delay': ( typeof delay !== 'number' || delay < 0)? 0 : delay,
+					'repeat': repeat
 				});
 				//console.log(feeds);
 			}
@@ -126,7 +128,8 @@ async function restoreOptions() {
 		'code': '' ,
 		'url_regex': '',
 		'action':'save',
-		'delay' : -1
+		'delay' : -1,
+		'repeat': -1,
 	});
 	var res = await browser.storage.local.get('selectors');
 	if ( !Array.isArray(res.selectors) ) { return; }
