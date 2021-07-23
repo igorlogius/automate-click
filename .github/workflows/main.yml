@@ -24,43 +24,26 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       #- uses: actions/checkout@v2
-
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          ID="automate-click"
-          BRANCH="master"
-
-          # check dependencies
-          MISSING_REQ=0
+          DATE=$(date +%F_%H-%M)
+          ID="automate-click";
+          echo "ARTNAME=$ID" >> $GITHUB_ENV;
+          echo "DATE=$DATE" >> $GITHUB_ENV;
+          BRANCH="master";
+          MISSING_REQ=0;
           for req in mktemp wget unzip zip grep cut date;do
             type $req >/dev/null 2>&1 || { echo >&2 "Missing dependency: $req"; MISSING_REQ=1; }
           done
           [ $MISSING_REQ -ne 0 ] && { echo "Aborting because of missing dependency"; exit 1; }
-
-          # create tmp storage
-          ZIPFILE=$(mktemp)
-          EXTRDIR=$(mktemp -d)
-
-          # download latest source
-          wget -q --show-progress "https://github.com/igorlogius/$ID/archive/$BRANCH.zip" -O $ZIPFILE
-
-          # extract without paths and README and example_config.json
-          unzip -j $ZIPFILE -d $EXTRDIR -x "*/README" "*/example_config.json"
-
-          # re-pack as xpi (zip) without paths and extended file attributes 
-          XPI="$ID-$(grep '"version"' $EXTRDIR/manifest.json |cut -d'"' -f4)-$(date '+%F_%T').xpi" 
-          
-          echo $XPI
-          
-          zip -X -j $XPI $EXTRDIR/*
-          
-          # expose xpi name as artifact name
-          echo "ARTNAME=$XPI" >> $GITHUB_ENV;
-          
-          
-          
-          echo "DATE=$(date +%F_%H-%M)" >> $GITHUB_ENV;
+          ZIPFILE=$(mktemp);
+          EXTRDIR=$(mktemp -d);
+          wget -q --show-progress "https://github.com/igorlogius/$ID/archive/$BRANCH.zip" -O $ZIPFILE;
+          unzip -j $ZIPFILE -d $EXTRDIR -x "*/README" "*/example_config.json";
+          XPI="$ID-$(grep '"version"' $EXTRDIR/manifest.json |cut -d'"' -f4)-$DATE.xpi";
+          echo $XPI;
+          zip -X -j $XPI $EXTRDIR/*;
         
       - name: create release
         id: create_release
