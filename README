@@ -33,6 +33,5 @@ unzip -l $XPI
 
 echo "Homepage:  https://addons.mozilla.org/en-US/firefox/addon/$ID"
 
-if [ ! -z ${GITHUB_ENV+x} ];then
-	echo "ARTNAME=$XPI" >> $GITHUB_ENV;
-fi
+# conditional export of artifact name for github release workflow 
+[ -z ${GITHUB_ENV+x} ] || { echo "ARTNAME=$XPI" >> $GITHUB_ENV; }
