@@ -23,27 +23,16 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      #- uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
           DATE=$(date +%F_%H-%M)
-          ID="automate-click";
-          echo "ARTNAME=$ID" >> $GITHUB_ENV;
           echo "DATE=$DATE" >> $GITHUB_ENV;
-          BRANCH="master";
-          MISSING_REQ=0;
-          for req in mktemp wget unzip zip grep cut date;do
-            type $req >/dev/null 2>&1 || { echo >&2 "Missing dependency: $req"; MISSING_REQ=1; }
-          done
-          [ $MISSING_REQ -ne 0 ] && { echo "Aborting because of missing dependency"; exit 1; }
-          ZIPFILE=$(mktemp);
-          EXTRDIR=$(mktemp -d);
-          wget -q --show-progress "https://github.com/igorlogius/$ID/archive/$BRANCH.zip" -O $ZIPFILE;
-          unzip -j $ZIPFILE -d $EXTRDIR -x "*/README" "*/example_config.json";
-          XPI="$ID-$(grep '"version"' $EXTRDIR/manifest.json |cut -d'"' -f4)-$DATE.xpi";
-          echo $XPI;
-          zip -X -j $XPI $EXTRDIR/*;
+          ID="automate-click";
+          ARTNAME="$ID-$(grep '"version"' manifest.json |cut -d'"' -f4)-$DATE.xpi";
+          echo "ARTNAME=$ARTNAME" >> $GITHUB_ENV;
+          zip -X -j $ARTNAME * -x "*/README" "*/example_config.json";
         
       - name: create release
         id: create_release
