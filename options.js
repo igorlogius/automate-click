@@ -75,8 +75,10 @@ function collectConfig() {
 			var check = mainTableBody.rows[row].querySelector('.activ').checked || false ;
 			var repeat = mainTableBody.rows[row].querySelector('.repeat').value || 0 ;
 			var delay = mainTableBody.rows[row].querySelector('.delay').value || 0;
-			if(url_regex !== '' && ses !== '' && isNumeric(delay)) {
+
+			if(url_regex !== '' && ses !== '' && isNumeric(delay) && isNumeric(repeat)) {
 				delay = parseInt(delay);
+				repeat = parseInt(repeat);
 				feeds.push({
 					'activ': check,
 					'annotation': desc, 
