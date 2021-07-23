@@ -134,6 +134,10 @@ async function restoreOptions() {
 		if(typeof selector.annotation !== 'string') {
 			selector.annotation = '';
 		}
+
+		if(typeof selector.repeat !== 'number') {
+			selector.repeat = -1;
+		}
 		createTableRow(selector);
 	});
 }
