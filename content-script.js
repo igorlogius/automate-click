@@ -23,7 +23,6 @@
 	}
 
 	const waitFor = (selectors, depth) => {
-		//log('debug', JSON.stringify(selectors) + "|" + depth);
 
 		if(!Array.isArray(selectors.code)) { return; }
 
@@ -67,23 +66,21 @@
 	try {
 		store = await browser.storage.local.get('selectors');
 	}catch(e){
-		log('ERROR', 'access to rules storage failed');
+		log('error', 'access to rules storage failed');
 		return;
 	}
 
 	if ( typeof store.selectors !== 'object' ) { 
-		log('ERROR', 'rules selectors not available');
+		log('error', 'rules selectors not available');
 		return;
 	}
 
 	if ( typeof store.selectors.forEach !== 'function' ) { 
-		log('ERROR', 'rules selectors not iterable');
+		log('error', 'rules selectors not iterable');
 		return;
 	}
 
 	store.selectors.forEach( (selector) => {
-
-		//console.log(JSON.stringify(selector));
 
 		// check activ
 		if(typeof selector.activ !== 'boolean') { return; }
@@ -96,7 +93,7 @@
 
 		if(!(new RegExp(selector.url_regex)).test(window.location.href)){ return; }
 
-		log('INFO', window.location.href);
+		log('debug', window.location.href);
 
 		if ( typeof selector.code !== 'string' ) { return; }
 		if ( selector.code === '' ) { return; }

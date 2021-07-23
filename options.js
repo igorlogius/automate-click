@@ -23,7 +23,7 @@ function createTableRow(feed) {
 			case 'activ':
 				input.placeholder = key;
 				input.type='checkbox';
-				input.checked= (typeof feed[key] === 'boolean'? feed[key]: true);
+				input.checked= (typeof feed[key] === 'boolean') ? feed[key]: true;
 				break;
 			case 'annotation':
 				input.placeholder = key;
@@ -35,13 +35,13 @@ function createTableRow(feed) {
 				break;
 			case 'delay':
 				input.placeholder = '0';
-				input.value = feed[key] > -1? feed[key] : 0;
+				input.value = (feed[key] > -1) ? feed[key] : 0;
 				input.type='number';
 				input.min=0;
 				break;
 			case 'repeat':
 				input.placeholder = '0';
-				input.value = feed[key] > -1? feed[key] : 0;
+				input.value = (feed[key] > -1) ? feed[key] : 0;
 				input.type='number';
 				input.min=0;
 				break;
@@ -65,8 +65,6 @@ function createTableRow(feed) {
 }
 
 function collectConfig() {
-	//console.log('collectConfig');
-	// collect configuration from DOM
 	var mainTableBody = document.getElementById('mainTableBody');
 	var feeds = [];
 	for (var row = 0; row < mainTableBody.rows.length; row++) { 
@@ -77,7 +75,6 @@ function collectConfig() {
 			var check = mainTableBody.rows[row].querySelector('.activ').checked || false ;
 			var repeat = mainTableBody.rows[row].querySelector('.repeat').value || 0 ;
 			var delay = mainTableBody.rows[row].querySelector('.delay').value || 0;
-			//console.log(delay);
 			if(url_regex !== '' && ses !== '' && isNumeric(delay)) {
 				delay = parseInt(delay);
 				feeds.push({
@@ -88,7 +85,6 @@ function collectConfig() {
 					'delay': ( typeof delay !== 'number' || delay < 0)? 0 : delay,
 					'repeat': repeat
 				});
-				//console.log(feeds);
 			}
 		}catch(e){
 			console.error(e);
@@ -153,8 +149,6 @@ expbtn.addEventListener('click', async function (evt) {
     var dl = document.createElement('a');
     var res = await browser.storage.local.get('selectors');
     var content = JSON.stringify(res.selectors,null,4);
-    //console.log(content);
-    //	return;
     dl.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(content));
     dl.setAttribute('download', 'data.json');
     dl.setAttribute('visibility', 'hidden');
@@ -170,16 +164,11 @@ impbtnWrp.addEventListener('click', function(evt) {
 })
 
 impbtn.addEventListener('input', function (evt) {
-	
 	var file  = this.files[0];
-
-	//console.log(file.name);
-	
 	var reader = new FileReader();
 	        reader.onload = async function(e) {
             try {
                 var config = JSON.parse(reader.result);
-		//console.log("impbtn", config);
 		await browser.storage.local.set({ 'selectors': config});
 		document.querySelector("form").submit();
             } catch (e) {
@@ -187,5 +176,4 @@ impbtn.addEventListener('input', function (evt) {
             }
         };
         reader.readAsText(file);
-
 });
