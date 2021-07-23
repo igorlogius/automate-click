@@ -40,8 +40,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
-          tag_name: ${{env.DATE}}_${{env.ARTNAME}}
-          release_name: ${{env.DATE}}_${{env.ARTNAME}}
+          tag_name: ${{env.ARTNAME}}
+          release_name: ${{env.ARTNAME}}
           draft: false
           prerelease: false
           
