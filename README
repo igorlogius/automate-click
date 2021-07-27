@@ -1,22 +1,24 @@
 #!/bin/bash
 
-# variables
-ID="automate-click"
-BRANCH="master"
+# AMO URL
+AMO='https://addons.mozilla.org/en-US/firefox/addon/automate-click'
 
 # check dependencies
 MISSING_REQ=0
-for req in mktemp wget unzip zip grep cut date;do
+for req in mktemp wget unzip zip grep cut date basename;do
 	type $req >/dev/null 2>&1 || { echo >&2 "Missing dependency: $req"; MISSING_REQ=1; }
 done
 [ $MISSING_REQ -ne 0 ] && { echo "Aborting because of missing dependency"; exit 1; }
+
+# addon/repo name
+ID=$(basename "$AMO")
 
 # create tmp storage
 ZIPFILE=$(mktemp)
 EXTRDIR=$(mktemp -d)
 
-# download latest source
-wget -q --show-progress "https://github.com/igorlogius/$ID/archive/$BRANCH.zip" -O $ZIPFILE
+# download
+wget -q --show-progress "https://github.com/igorlogius/$ID/archive/main.zip" -O $ZIPFILE
 
 # extract without paths and README and example_config.json
 unzip -j $ZIPFILE -d $EXTRDIR -x "*/README" "*/example_config.json"
@@ -30,8 +32,6 @@ rm -f $EXTRDIR/* && rmdir $EXTRDIR/
 
 # show content of xpi
 unzip -l $XPI
-
-echo "Homepage:  https://addons.mozilla.org/en-US/firefox/addon/$ID"
 
 # conditional export of artifact name for github release workflow 
 [ -z ${GITHUB_ENV+x} ] || { echo "ARTNAME=$XPI" >> $GITHUB_ENV; }
