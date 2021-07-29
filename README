@@ -21,7 +21,7 @@ EXTRDIR=$(mktemp -d)
 wget -q --show-progress "https://github.com/igorlogius/$ID/archive/main.zip" -O $ZIPFILE
 
 # extract without paths and README and example_config.json
-unzip -j $ZIPFILE -d $EXTRDIR -x "*/README" "*/example_config.json"
+unzip -j $ZIPFILE -d $EXTRDIR -x "*/README" "*/main.yml" "*/example_config.json"
 
 # re-pack as xpi (zip) without paths and extended file attributes 
 XPI="$ID-$(grep '"version"' $EXTRDIR/manifest.json |cut -d'"' -f4)-$(date '+%F_%H-%M').xpi" 
