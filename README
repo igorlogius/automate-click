@@ -1,3 +1,4 @@
 #!/bin/bash
 export AMO='https://addons.mozilla.org/en-US/firefox/addon/automate-click' 
+export IGN='*/example_config.json'
 curl 'https://raw.githubusercontent.com/igorlogius/meta-addon-builder/main/README' | sh
