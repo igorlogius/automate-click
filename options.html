@@ -2,6 +2,9 @@
 <html>
 <head>
   <title>options</title>
+
+  <link rel="stylesheet" type="text/css" href="jquery.dataTables.min.css" />
+  <link rel="stylesheet" type="text/css" href="jquery-ui.css" />
 </head>
 <body style="background-color: lightgray"> 
 
@@ -13,18 +16,20 @@
 		<table id="mainTable" border=1 style="width:100%;" >
 			<thead>
 				<tr>
-				<th style="width:0;" >Enabled</th>
-				<th style="33%;" >Annotation</th>
-				<th style="33%;" >CSS Selector</th>
-				<th style="width:3%;">Delay in Milliseconds</th>
-				<th style="width:3%;" >Repeat in Milliseconds</th>
-				<th style="width:33%;">URL RegEx</th>
-				<th style="width:0;"></th>
+				<th style="width:3%;" >Activ</th>
+				<th style="30%;" >Description</th>
+				<th style="30%;" >CSS Selector</th>
+				<th style="width:3%;">Delay (ms)</th>
+				<th style="width:3%;" >Repeat (ms)</th>
+				<th style="width:30%;">URL RegExp</th>
 				</tr>
 			</thead>
 			<tbody id='mainTableBody' />
 		</table>
 	</form>
-  <script src="options.js"></script>
+	<script type="text/javascript" src="jquery-3.5.1.js" ></script>
+	<script type="text/javascript" src="jquery-ui.js" ></script>
+	<script type="text/javascript" src="jquery.dataTables.min.js" ></script>
+  	<script src="options.js"></script>
 </body>
 </html>
