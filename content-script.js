@@ -1,6 +1,11 @@
 
 (async () => {
 
+    function getRandomInt(min, max) {
+        if(max <= min) return 0;
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
 	if (typeof window.automateclick_hasRun !== 'undefined'){
 		return;
 	}
@@ -12,12 +17,12 @@
 
 	const temporary = browser.runtime.id.endsWith('@temporary-addon'); // debugging?
 
-	const log = (level, msg) => { 
+	const log = (level, msg) => {
 		level = level.trim().toLowerCase();
-		if (['error','warn'].includes(level) 
+		if (['error','warn'].includes(level)
 			|| ( temporary && ['debug','info','log'].includes(level))
 		) {
-			console[level](extId + '::' + level.toUpperCase() + '::' + msg); 
+			console[level](extId + '::' + level.toUpperCase() + '::' + msg);
 			return;
 		}
 	}
@@ -34,7 +39,7 @@
 
 		document.querySelectorAll(selectors.code[0]).forEach( (item) => {
 			if( typeof item.click === 'function') {
-				item.click(); // click item 
+				item.click(); // click item
 				log('debug', 'item clicked');
 				clicked=true;
 			}else{
@@ -45,9 +50,13 @@
 		if(selectors.repeat > 0) {
 			let selector = JSON.parse(JSON.stringify(selectors));
 			selector.code = [selector.code[0]];
+            const min = (selector.repeat - selector.rvariance);
+            const max = (selector.repeat + selector.rvariance);
+            const tovalue = (max > min && min >= 0) ? getRandomInt(min, max) : selector.repeat;
+			log('debug','tovalue: ' + tovalue);
 			setTimeout(function() {
 				waitFor(selector, 0);
-			}, selector.repeat);
+			},tovalue);
 		}
 
 		if(selectors.repeat > 0 || clicked === true){
@@ -70,12 +79,12 @@
 		return;
 	}
 
-	if ( typeof store.selectors !== 'object' ) { 
+	if ( typeof store.selectors !== 'object' ) {
 		log('error', 'rules selectors not available');
 		return;
 	}
 
-	if ( typeof store.selectors.forEach !== 'function' ) { 
+	if ( typeof store.selectors.forEach !== 'function' ) {
 		log('error', 'rules selectors not iterable');
 		return;
 	}
@@ -86,9 +95,9 @@
 		if(typeof selector.activ !== 'boolean') { return; }
 		if(selector.activ !== true) { return; }
 
-		// check url regex 
+		// check url regex
 		if(typeof selector.url_regex !== 'string') { return; }
-		selector.url_regex = selector.url_regex.trim(); 
+		selector.url_regex = selector.url_regex.trim();
 		if(selector.url_regex === ''){ return; }
 
 		if(!(new RegExp(selector.url_regex)).test(window.location.href)){ return; }

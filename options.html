@@ -3,22 +3,24 @@
 <head>
   <title>options</title>
 </head>
-<body style="background-color: lightgray"> 
+<body style="background-color: lightgray">
 
 	<form id="mainForm" accept-charset="utf-8">
 		<input type="submit" value="Save all changes" />
 		<input id="impbtn_wrapper" type="button" name="impbtn" value="Import Rules" />
 		<input id="impbtn" type="file" name="impbtn" value="" style="display:none" />
 		<input id="expbtn" type="button" name="impbtn" value="Export Rules" />
+        <span>Note: All form numbers represent milliseconds (aka. 1/1000 of a second)</span>
 		<table id="mainTable" border=1 style="width:100%;" >
 			<thead>
 				<tr>
 				<th style="width:0;" >Enabled</th>
-				<th style="33%;" >Annotation</th>
-				<th style="33%;" >CSS Selector</th>
-				<th style="width:3%;">Delay in Milliseconds</th>
-				<th style="width:3%;" >Repeat in Milliseconds</th>
-				<th style="width:33%;">URL RegEx</th>
+				<th style="30%;" >Annotation</th>
+                <th style="30%;" ><abbr title="Cascading Style Sheets">CSS</abbr> Selector</th>
+				<th style="width:4%;" >Inital Delay</th>
+                <th style="width:4%;" >Repeat Delay</th>
+                <th style="width:4%;" ><abbr title="Repeat Random Variance">RRV</abbr></th>
+				<th style="width:30%;">URL RegEx</th>
 				<th style="width:0;"></th>
 				</tr>
 			</thead>

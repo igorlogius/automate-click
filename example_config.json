@@ -1,163 +1,162 @@
 [
-    {
-        "activ": true,
-        "annotation": "",
-        "url_regex": "^https:\\/\\/marktguru\\.at.*",
-        "code": "#uc-btn-accept-banner",
-        "delay": 0,
-	"repeat": 0
-    },
-    {
-        "activ": true,
-        "annotation": "",
-        "url_regex": "^https:\\/\\/mararathi\\.tv.*",
-        "code": ".cc_btn",
-        "delay": 0,
-	"repeat": 0
-    },
-    {
-        "activ": true,
-        "annotation": "",
-        "url_regex": "^https:\\/\\/noisli\\.com.*",
-        "code": "#onetrust-accept-btn-handler",
-        "delay": 0,
-	"repeat": 0
-    },
-    {
-        "activ": true,
-        "annotation": "",
-        "url_regex": "^https:\\/\\/opswat\\.com.*",
-        "code": "#cookie-ntc__accept",
-        "delay": 0,
-	"repeat": 0
-    },
-    {
-        "activ": true,
-        "annotation": "",
-        "url_regex": "^https:\\/\\/www.freeimages\\.com.*",
-        "code": "#dismiss-cookie",
-        "delay": 0,
-	"repeat": 0
-    },
-    {
-        "activ": true,
-        "annotation": "",
-        "url_regex": "^https:\\/\\/planet\\.com.*",
-        "code": ".pl-accept",
-        "delay": 0,
-	"repeat": 0
-    },
-    {
-        "activ": true,
-        "annotation": "",
-        "url_regex": "^https:\\/\\/www\\.datafox\\.de.*",
-        "code": "#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll",
-        "delay": 0,
-	"repeat": 0
-    },
-    {
-        "activ": true,
-        "annotation": "",
-        "url_regex": "^https:\\/\\/www\\.thewindowsclub\\.com.*",
-        "code": "#ez-all-cookies",
-        "delay": 0,
-	"repeat": 0
-    },
-    {
-        "activ": true,
-        "annotation": "",
-        "url_regex": "^https:\\/\\/hindustantimes\\.com.*",
-        "code": "#agree",
-        "delay": 0,
-	"repeat": 0
-    },
-    {
-        "activ": true,
-        "annotation": "",
-        "url_regex": "^https:\\/\\/www\\.worthpoint\\.com.*",
-        "code": ".banner__close",
-        "delay": 0,
-	"repeat": 0
-    },
-    {
-        "activ": true,
-        "annotation": "",
-        "url_regex": "^https:\\/\\/grafana\\.com.*",
-        "code": "button.btn",
-        "delay": 0,
-	"repeat": 0
-    },
-    {
-        "activ": true,
-        "annotation": "",
-        "url_regex": "^https:\\/\\/www\\.digisport\\.ro.*",
-        "code": "div.gdpr-button:nth-child(3)",
-        "delay": 0,
-	"repeat": 0
-    },
-    {
-        "activ": true,
-        "annotation": "",
-        "url_regex": "^https:\\/\\/www\\.radarbox24\\.com.*",
-        "code": "#close-privacy-popup",
-        "delay": 0,
-	"repeat": 0
-    },
-    {
-        "activ": true,
-        "annotation": "",
-        "url_regex": "^https:\\/\\/roosterteeth\\.com.*",
-        "code": "button.optanon-allow-all",
-        "delay": 0,
-	"repeat": 0
-    },
-    {
-        "activ": true,
-        "annotation": "",
-        "url_regex": "^https:\\/\\/thewalrus\\.ca.*",
-        "code": "button.spu-close-popup",
-        "delay": 0,
-	"repeat": 0
-    },
-    {
-        "activ": true,
-        "annotation": "",
-        "url_regex": "^https:\\/\\/www\\.ebay\\.de.*",
-        "code": "#gdpr-banner-accept",
-        "delay": 0,
-	"repeat": 0
-    },
-    {
-        "activ": true,
-        "annotation": "",
-        "url_regex": "^https:\\/\\/www\\.google\\.de.*",
-        "code": "#cnsd",
-        "delay": 0,
-	"repeat": 0
-    },
-    {
-        "activ": true,
-        "annotation": "",
-        "url_regex": "^https:\\/\\/ask\\.com.*",
-        "code": "#ccOkBtn",
-        "delay": 0,
-	"repeat": 0
-    },
-    {
-        "activ": true,
-        "annotation": "",
-        "url_regex": "^https:\\/\\/slashdot\\.org.*",
-        "code": ".cmpboxbtnyes",
-        "delay": 0
-        "delay": 0,
-	"repeat": 0
-    },
-    {
-        "activ": true,
-        "annotation": "",
-        "url_regex": "^https:\\/\\/www\\.paypal\\.com.*",
-        "code": "#acceptAllButton",
-        "delay": 0,
-	"repeat": 0
-    }
+  {
+    "activ": true,
+    "annotation": "",
+    "url_regex": "^https:\\/\\/marktguru\\.at.*",
+    "code": "#uc-btn-accept-banner",
+    "delay": 1000,
+    "repeat": 0
+  },
+  {
+    "activ": true,
+    "annotation": "",
+    "url_regex": "^https:\\/\\/mararathi\\.tv.*",
+    "code": ".cc_btn",
+    "delay": 1000,
+    "repeat": 0
+  },
+  {
+    "activ": true,
+    "annotation": "",
+    "url_regex": "^https:\\/\\/noisli\\.com.*",
+    "code": "#onetrust-accept-btn-handler",
+    "delay": 1000,
+    "repeat": 0
+  },
+  {
+    "activ": true,
+    "annotation": "",
+    "url_regex": "^https:\\/\\/opswat\\.com.*",
+    "code": "#cookie-ntc__accept",
+    "delay": 100,
+    "repeat": 0
+  },
+  {
+    "activ": true,
+    "annotation": "",
+    "url_regex": "^https:\\/\\/www.freeimages\\.com.*",
+    "code": "#dismiss-cookie",
+    "delay": 1000,
+    "repeat": 0
+  },
+  {
+    "activ": true,
+    "annotation": "",
+    "url_regex": "^https:\\/\\/planet\\.com.*",
+    "code": ".pl-accept",
+    "delay": 1000,
+    "repeat": 0
+  },
+  {
+    "activ": true,
+    "annotation": "",
+    "url_regex": "^https:\\/\\/www\\.datafox\\.de.*",
+    "code": "#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll",
+    "delay": 1000,
+    "repeat": 0
+  },
+  {
+    "activ": true,
+    "annotation": "",
+    "url_regex": "^https:\\/\\/www\\.thewindowsclub\\.com.*",
+    "code": "#ez-all-cookies",
+    "delay": 1000,
+    "repeat": 0
+  },
+  {
+    "activ": true,
+    "annotation": "",
+    "url_regex": "^https:\\/\\/hindustantimes\\.com.*",
+    "code": "#agree",
+    "delay": 1000,
+    "repeat": 0
+  },
+  {
+    "activ": true,
+    "annotation": "",
+    "url_regex": "^https:\\/\\/www\\.worthpoint\\.com.*",
+    "code": ".banner__close",
+    "delay": 1000,
+    "repeat": 0
+  },
+  {
+    "activ": true,
+    "annotation": "",
+    "url_regex": "^https:\\/\\/grafana\\.com.*",
+    "code": "button.btn",
+    "delay": 1000,
+    "repeat": 0
+  },
+  {
+    "activ": true,
+    "annotation": "",
+    "url_regex": "^https:\\/\\/www\\.digisport\\.ro.*",
+    "code": "div.gdpr-button:nth-child(3)",
+    "delay": 1000,
+    "repeat": 0
+  },
+  {
+    "activ": true,
+    "annotation": "",
+    "url_regex": "^https:\\/\\/www\\.radarbox24\\.com.*",
+    "code": "#close-privacy-popup",
+    "delay": 1000,
+    "repeat": 0
+  },
+  {
+    "activ": true,
+    "annotation": "",
+    "url_regex": "^https:\\/\\/roosterteeth\\.com.*",
+    "code": "button.optanon-allow-all",
+    "delay": 1000,
+    "repeat": 0
+  },
+  {
+    "activ": true,
+    "annotation": "",
+    "url_regex": "^https:\\/\\/thewalrus\\.ca.*",
+    "code": "button.spu-close-popup",
+    "delay": 1000,
+    "repeat": 0
+  },
+  {
+    "activ": true,
+    "annotation": "",
+    "url_regex": "^https:\\/\\/www\\.ebay\\.de.*",
+    "code": "#gdpr-banner-accept",
+    "delay": 1000,
+    "repeat": 0
+  },
+  {
+    "activ": true,
+    "annotation": "",
+    "url_regex": "^https:\\/\\/www\\.google\\.de.*",
+    "code": "#cnsd",
+    "delay": 1000,
+    "repeat": 0
+  },
+  {
+    "activ": true,
+    "annotation": "",
+    "url_regex": "^https:\\/\\/ask\\.com.*",
+    "code": "#ccOkBtn",
+    "delay": 1000,
+    "repeat": 0
+  },
+  {
+    "activ": true,
+    "annotation": "",
+    "url_regex": "^https:\\/\\/slashdot\\.org.*",
+    "code": ".cmpboxbtnyes",
+    "delay": 1000,
+    "repeat": 0
+  },
+  {
+    "activ": true,
+    "annotation": "",
+    "url_regex": "^https:\\/\\/www\\.paypal\\.com.*",
+    "code": "#acceptAllButton",
+    "delay": 1000,
+    "repeat": 0
+  }
 ]

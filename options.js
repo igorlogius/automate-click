@@ -45,6 +45,12 @@ function createTableRow(feed) {
 				input.type='number';
 				input.min=0;
 				break;
+			case 'rvariance':
+				input.placeholder = '0';
+				input.value = (feed[key] > -1) ? feed[key] : 0;
+				input.type='number';
+				input.min=0;
+				break;
 			case 'url_regex':
 				input.placeholder = 'url_regex';
 				input.value = feed[key];
@@ -67,25 +73,28 @@ function createTableRow(feed) {
 function collectConfig() {
 	var mainTableBody = document.getElementById('mainTableBody');
 	var feeds = [];
-	for (var row = 0; row < mainTableBody.rows.length; row++) { 
+	for (var row = 0; row < mainTableBody.rows.length; row++) {
 		try {
 			var url_regex = mainTableBody.rows[row].querySelector('.url_regex').value.trim() || '';
-			var ses = mainTableBody.rows[row].querySelector('.code').value || '';
+			var code = mainTableBody.rows[row].querySelector('.code').value || '';
 			var desc = mainTableBody.rows[row].querySelector('.annotation').value.trim() || '';
 			var check = mainTableBody.rows[row].querySelector('.activ').checked || false ;
 			var repeat = mainTableBody.rows[row].querySelector('.repeat').value || 0 ;
 			var delay = mainTableBody.rows[row].querySelector('.delay').value || 0;
+			var rvariance = mainTableBody.rows[row].querySelector('.rvariance').value || 0 ;
 
-			if(url_regex !== '' && ses !== '' && isNumeric(delay) && isNumeric(repeat)) {
+			if(url_regex !== '' && code !== '' && isNumeric(delay) && isNumeric(repeat) && isNumeric(rvariance) ) {
 				delay = parseInt(delay);
 				repeat = parseInt(repeat);
+				rvariance = parseInt(rvariance);
 				feeds.push({
 					'activ': check,
-					'annotation': desc, 
+					'annotation': desc,
 					'url_regex': url_regex,
-					'code': ses,
-					'delay': ( typeof delay !== 'number' || delay < 0)? 0 : delay,
-					'repeat': repeat
+					'code': code,
+					'delay': delay,
+					'repeat': repeat,
+                    'rvariance': rvariance
 				});
 			}
 		}catch(e){
@@ -128,6 +137,7 @@ async function restoreOptions() {
 		'action':'save',
 		'delay' : -1,
 		'repeat': -1,
+		'rvariance': -1,
 	});
 	var res = await browser.storage.local.get('selectors');
 	if ( !Array.isArray(res.selectors) ) { return; }
@@ -136,9 +146,14 @@ async function restoreOptions() {
 		if(typeof selector.annotation !== 'string') {
 			selector.annotation = '';
 		}
-
+		if(typeof selector.delay !== 'number') {
+			selector.delay = -1;
+		}
 		if(typeof selector.repeat !== 'number') {
 			selector.repeat = -1;
+		}
+		if(typeof selector.rvariance !== 'number') {
+			selector.rvariance = -1;
 		}
 		createTableRow(selector);
 	});
