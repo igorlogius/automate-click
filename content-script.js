@@ -29,15 +29,15 @@
 
 	const waitFor = (selectors, depth) => {
 
-		if(!Array.isArray(selectors.code)) { return; }
+		if(!Array.isArray(selectors.cssselector)) { return; }
 
-		if(depth >= MAX_WAIT_CYCLES){ selectors.code.shift(); } // max_cycles goto next element
+		if(depth >= MAX_WAIT_CYCLES){ selectors.cssselector.shift(); } // max_cycles goto next element
 
-		if(selectors.code.length < 1) { return; }
+		if(selectors.cssselector.length < 1) { return; }
 
 		let clicked = false;
 
-		document.querySelectorAll(selectors.code[0]).forEach( (item) => {
+		document.querySelectorAll(selectors.cssselector[0]).forEach( (item) => {
 			if( typeof item.click === 'function') {
 				item.click(); // click item
 				log('debug', 'item clicked');
@@ -47,24 +47,24 @@
 			}
 		} );
 
-		if(selectors.repeat > 0) {
+		if(selectors.repeatdelay > 0) {
 			let selector = JSON.parse(JSON.stringify(selectors));
-			selector.code = [selector.code[0]];
-            const min = (selector.repeat - selector.rvariance);
-            const max = (selector.repeat + selector.rvariance);
-            const tovalue = (max > min && min >= 0) ? getRandomInt(min, max) : selector.repeat;
+			selector.cssselector = [selector.cssselector[0]];
+            const min = (selector.repeatdelay - selector.randomrepeatvariance);
+            const max = (selector.repeatdelay + selector.randomrepeatvariance);
+            const tovalue = ((max - min) > 0) ? getRandomInt(min, max) : selector.repeatdelay;
 			log('debug','tovalue: ' + tovalue);
 			setTimeout(function() {
 				waitFor(selector, 0);
 			},tovalue);
 		}
 
-		if(selectors.repeat > 0 || clicked === true){
+		if(selectors.repeatdelay > 0 || clicked === true){
 			depth = -1;
-			selectors.code.shift();
+			selectors.cssselector.shift();
 		}
 
-		if(selectors.code.length > 0) {
+		if(selectors.cssselector.length > 0) {
 			setTimeout(function() {
 				waitFor(selectors, ++depth);
 			}, 250);
@@ -91,23 +91,23 @@
 
 	store.selectors.forEach( (selector) => {
 
-		// check activ
-		if(typeof selector.activ !== 'boolean') { return; }
-		if(selector.activ !== true) { return; }
+		// check enabled
+		if(typeof selector.enabled !== 'boolean') { return; }
+		if(selector.enabled !== true) { return; }
 
 		// check url regex
-		if(typeof selector.url_regex !== 'string') { return; }
-		selector.url_regex = selector.url_regex.trim();
-		if(selector.url_regex === ''){ return; }
+		if(typeof selector.urlregex !== 'string') { return; }
+		selector.urlregex = selector.urlregex.trim();
+		if(selector.urlregex === ''){ return; }
 
-		if(!(new RegExp(selector.url_regex)).test(window.location.href)){ return; }
+		if(!(new RegExp(selector.urlregex)).test(window.location.href)){ return; }
 
 		log('debug', window.location.href);
 
-		if ( typeof selector.code !== 'string' ) { return; }
-		if ( selector.code === '' ) { return; }
+		if ( typeof selector.cssselector !== 'string' ) { return; }
+		if ( selector.cssselector === '' ) { return; }
 
-		selector.code = selector.code.split(';');
+		selector.cssselector = selector.cssselector.split(';');
 
 		log('debug', JSON.stringify(selector,null,4));
 
@@ -115,9 +115,9 @@
 			setTimeout(function() {
 				let depth = 0;
 				waitFor(selector, depth)
-			}, selector.delay || 3000); // wait delay
+			}, selector.initaldelay || 3000); // wait initaldelay
 		}catch(e){
-			log('WARN', 'code execution failed :' + selector.code + " delay: " + selectors.delay);
+			log('WARN', 'cssselector execution failed :' + selector.cssselector + " initaldelay: " + selectors.initaldelay);
 		}
 	});
 
