@@ -141,22 +141,21 @@ async function onDOMContentLoaded() {
 
     table = new Tabulator("#mainTable", {
         height: "100%",
-        layout:"fitColumns",      //fit columns to width of table
-        //responsiveLayout:"hide",  //hide columns that dont fit on the table
-        responsiveLayout: false,  //hide columns that dont fit on the table
-        //tooltips:true,            //show tool tips on cells
+        layout:"fitDataStretch",      //fit columns to width of table
+        responsiveLayout: "hide",  //hide columns that dont fit on the table
+        tooltips:true,            //show tool tips on cells
         addRowPos:"top",          //when adding a new row, add it to the top of the table
-        //history:true,             //allow undo and redo actions on the table
+        history:true,             //allow undo and redo actions on the table
         //pagination:"local",       //paginate the data
         pagination: false,       //paginate the data
         //paginationSize: 25,         //allow 7 rows per page of data
         //movableColumns:true,      //allow column order to be changed
         //resizableRows:true,       //allow row order to be changed
         movableRows: true,
-        initialSort:[             //set the initial sort order of the data
+        /*initialSort:[             //set the initial sort order of the data
             {column:"group", dir:"asc"},
             //{column:"action", dir:"asc"},
-        ],
+        ],*/
         groupBy: "group",
         groupUpdateOnCellEdit:true,
         /*groupStartOpen:function(value, count, data, group){
@@ -175,133 +174,46 @@ async function onDOMContentLoaded() {
                 cell.getRow().toggleSelect();
             }},
             {title:"Enabled", width: 100, field:"enabled", formatter: "tickCross", sorter:"boolean", headerHozAlign: "center",  hozAlign:"center", editor:true, editorParams: { tristate:false}},
-            {title:"Group", field:"group", headerFilter:"input", headerFilterPlaceholder:"Textfilter", editor:"input", sorter: "string", sorterParams: {locale: true, alignEmptyValues: "top"}},
-            {title:"Annotation", field:"annotation", headerFilter:"input", headerFilterPlaceholder:"Textfilter", editor:"input", sorter: "string", sorterParams: {locale: true, alignEmptyValues: "top"}},
-            {title:"Tags", field:"tags", headerFilter:"select", headerFilterPlaceholder:"Multiselect", editor:"input", sorter: "string", sorterParams: {locale: true, alignEmptyValues: "bottom"} , headerFilterParams:{
-                values: tagValuesLookup, // get values
-                verticalNavigation:"hybrid", //navigate to new row when at the top or bottom of the selection lis
-                multiselect:true, //allow multiple entries to be selected
-
-            }
-
-
+            {title:"Group", field:"group", headerFilter:"input", headerFilterPlaceholder:"Text filter", width:120, editor:"input", sorter: "string", sorterParams: {locale: true, alignEmptyValues: "top"}},
+            {title:"Tags", field:"tags", width: 120, headerFilter:"select", headerFilterPlaceholder:"Multiselect", editor:"input", sorter: "string", sorterParams: {locale: true, alignEmptyValues: "bottom"} , headerFilterParams:{
+                    values: tagValuesLookup, // get values
+                    verticalNavigation:"hybrid", //navigate to new row when at the top or bottom of the selection lis
+                    multiselect:true, //allow multiple entries to be selected
+                }
             },
-            {title:"CSS Selector", field:"cssselector", headerFilter:"input", headerFilterPlaceholder:"Textfilter",editor:"input"},
-            {title:"Inital <br/>Delay", width: 100, field:"initaldelay", sorter:"number", editor:"input", headerSort: false, validator: ['required','min:0', 'integer'] },
-            {title:"Repeat <br/>Delay", width: 100, field:"repeatdelay", sorter:"number", editor:"input", headerSort: false, validator: ['required','min:0', 'integer']},
-            {title:'<acronym title="Random Repeat Variance" style="text-decoration-style:dashed;">RRV</acronym>', headerSort: false, width: 120, field:"randomrepeatvariance", sorter:"number", editor:"input", validator: ['required','min:0', 'integer']},
-            {title:'URL <acronym title="Regular Expression" style="text-decoration-style:dashed;">RegEx</acronym>', field:"urlregex",headerFilter:"input", headerFilterPlaceholder:"Textfilter",editor:"input"}
-            //{title:"Single Action", width: 100, field:"action", hozAlign:"center", headerHozAlign: "center",  formatter: btnFormatter, headerSort: false, cellClick: actionHandler}
+            {title:"Annotation", field:"annotation", maxWidth: 240, headerFilter:"input", headerFilterPlaceholder:"Text filter", editor:"input", sorter: "string", sorterParams: {locale: true, alignEmptyValues: "top"}},
+            {title:"Inital <br/>Delay", width: 80, field:"initaldelay", sorter:"number", editor:"input", headerSort: false, validator: ['required','min:0', 'integer'] },
+            {title:"Repeat <br/>Delay", width: 80, field:"repeatdelay", sorter:"number", editor:"input", headerSort: false, validator: ['required','min:0', 'integer']},
+            {title:'<acronym title="Random Repeat Variance" style="text-decoration-style:dashed;">RRV</acronym>', headerSort: false, width: 80, field:"randomrepeatvariance", sorter:"number", editor:"input", validator: ['required','min:0', 'integer']},
+            {title:"CSS Selector", field:"cssselector", width:"25%",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"input"},
+            {title:'URL Regular Expression', width:"25%",field:"urlregex",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"input"},
         ],
     });
 
     table.on("cellEdited", function(cell){
-        //if( cell.getRow().getData()['action'] !== 'Add') {
             const new_val = cell.getValue();
             const old_val = cell.getOldValue();
             if(new_val != old_val){
                 savbtn.style.background='red';
             }
-        //}
     });
 
     table.on("rowMoved", function(row){
-        //row - row component
         savbtn.style.background='red';
     });
 
-    /*
-    table.on("rowMoved", function(row){
-        //row - row component
-        var rowData = row.getData();
-        console.log(row.getPosition(), JSON.stringify(rowData,null,4));
-        if(rowData.action === 'Add') {
-            //table.moveRow(2,true);
-        }
-    });
-    */
-
     const data = await getTblData();
-
     data.forEach((e) => {
         table.addRow(e,true);
     });
 
-    // add input row
-    /*
-    table.addRow({
-            enabled: true,
-            group: '#Default Group',
-            annotation: '',
-            tags: '',
-            cssselector: '',
-            initaldelay: 1000,
-            repeatdelay: 0,
-            randomrepeatvariance: 0,
-            urlregex: '',
-            action: 'Add'
-        },true);
-        */
-
-
-
-    /*
-    table.on("dataGrouped", function(groups){
-        //groups - array of top level group components
-    });
-    */
-
-    /*
-    table.on("movableRowsSent", function(fromRow, toRow, toTable){
-        console.log(fromRow,toRow);
-        //fromRow - the row component from the sending table
-        //toRow - the row component from the receiving table (if available)
-        //toTable - the Tabulator object for the receiving table
-        //const rows = table.searchRows("action", "=","Add");
-        //rows[0].move(1, true);
-    });
-    */
-
     table.on("groupClick", function(e, group){
-        //e - the click event object
-        //group - group component
-        console.log('groupClick');
-
         const rows = group.getRows();
         for(const row of rows){
-
-            //const cell = row.getCell("enabled");
-            //cell.setValue(!cell.getValue())
             row.toggleSelect();
-
         }
     });
 
-    /*
-    table.on("dataSorted", function(_sorters, _rows){
-        //sorters - array of the sorters currently applied
-        //rows - array of row components in their new order
-            const rows = table.searchRows("action", "=","Add");
-            rows[0].delete();
-            cell.getRow().delete().then(function() {
-                browser.storage.local.set({ 'selectors': table.getData() })
-                table.addRow({
-                    enabled: true,
-                    group: '#Default Group',
-                    annotation: '',
-                    tags: '',
-                    cssselector: '',
-                    initaldelay: 0,
-                    repeatdelay: 0,
-                    randomrepeatvariance: 0,
-                    urlregex: '',
-                    action: 'Add'
-                },true);
-                savbtn.style.background='red';
-            });
-
-    });
-    */
 }
 
 async function getTblData() {
@@ -344,7 +256,6 @@ async function getTblData() {
                 repeatdelay: selector.repeat || selector.repeatdelay || 0,
                 randomrepeatvariance: parseInt(selector.rvariance || selector.randomrepeatvariance || 0),
                 urlregex: selector.url_regex || selector.urlregex || ''
-                //action: 'Delete'
             });
         });
     }
