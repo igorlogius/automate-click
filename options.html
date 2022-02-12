@@ -7,11 +7,15 @@
     </head>
     <body style="background-color: lightgray">
         <p></p>
+        <center>
         <button style="background:lightgreen;" id="savbtn" > Save changes</button>
         <button id="impbtn_wrapper" > Import Rules</button>
         <input id="impbtn" type="file" name="impbtn" value="" style="display:none" />
-        <button id="expbtn" type="button" name="impbtn" >Export Rules</button>
-        <span>Note: numbers represent milliseconds ( 1s &lt;=&gt; 1000ms )</span>
+        <button id="addbtn" type="button" name="addbtn" >Add Rule</button>
+        <button id="ablebtn" type="button" name="impbtn" >En/Disable Selected Rules</button>
+        <button id="expbtn" type="button" name="impbtn" >Export Selected Rules</button>
+        <button id="delbtn" type="button" name="impbtn" >Delete Selected Rules</button>
+        </center>
         <p></p>
         <table id="mainTable" border=1 style="width:100%;" ></table>
         <script src="tabulator.js"></script>
