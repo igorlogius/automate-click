@@ -178,7 +178,8 @@ function tagValuesLookup (){
 async function onDOMContentLoaded() {
 
     table = new Tabulator("#mainTable", {
-        height: "100%",
+        //height: "100%",
+        virtualDom:false, //disable virtual DOM rendering
         layout:"fitDataStretch",  //fit columns to width of table
         responsiveLayout: "hide", //hide columns that dont fit on the table
         pagination: false,  //paginate the data
@@ -206,7 +207,7 @@ async function onDOMContentLoaded() {
             {title:"Inital <br/>Delay", width: 80, field:"initaldelay", sorter:"number", editor:"input", headerSort: false, validator: ['required','min:0', 'integer'] },
             {title:"Repeat <br/>Delay", width: 80, field:"repeatdelay", sorter:"number", editor:"input", headerSort: false, validator: ['required','min:0', 'integer']},
             {title:'<acronym title="Random Repeat Variance" style="text-decoration-style:dashed;">RRV</acronym>', headerSort: false, width: 80, field:"randomrepeatvariance", sorter:"number", editor:"input", validator: ['required','min:0', 'integer']},
-            {title:"CSS Selector", field:"cssselector", width:"25%",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"input"},
+            {title:"CSS Selector", field:"cssselector", width:"25%",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"textarea", editorParams: { verticalNavigation: "editor", } ,formatter: "plaintext"},
             {title:'URL Regular Expression', width:"25%",field:"urlregex",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"input"},
         ],
     });
