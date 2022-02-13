@@ -145,7 +145,7 @@ async function onDOMContentLoaded() {
         responsiveLayout: "hide",  //hide columns that dont fit on the table
         tooltips:true,            //show tool tips on cells
         addRowPos:"top",          //when adding a new row, add it to the top of the table
-        history:true,             //allow undo and redo actions on the table
+        //history:true,             //allow undo and redo actions on the table
         //pagination:"local",       //paginate the data
         pagination: false,       //paginate the data
         //paginationSize: 25,         //allow 7 rows per page of data
