@@ -1,58 +1,79 @@
 
+const extId = 'AC';
+const temporary = browser.runtime.id.endsWith('@temporary-addon');
+
+const log = (level, msg) => {
+    level = level.trim().toLowerCase();
+    if (['error','warn'].includes(level)
+        || ( temporary && ['debug','info','log'].includes(level))
+    ) {
+        console[level]('[' + extId + '] [' + level.toUpperCase() + '] ' + msg);
+        return;
+    }
+}
+
+let table = null;
+
 // button refs
 const impbtnWrp = document.getElementById('impbtn_wrapper');
 const impbtn = document.getElementById('impbtn');
 const savbtn= document.getElementById('savbtn');
+const discbtn= document.getElementById('discbtn');
 const expbtn = document.getElementById('expbtn');
 const delbtn = document.getElementById('delbtn');
 const ablebtn = document.getElementById('ablebtn');
 const addbtn = document.getElementById('addbtn');
 
+
+function hightlightChange(){
+    savbtn.style.background='red';
+}
+
 addbtn.addEventListener('click', async function (evt) {
-
-                table.addRow({
-                    enabled: false,
-                    group: '',
-                    annotation: '',
-                    tags: '',
-                    cssselector: '',
-                    initaldelay: 0,
-                    repeatdelay: 0,
-                    randomrepeatvariance: 0,
-                    urlregex: '',
-                    action: 'Add'
-                },true);
-
-        savbtn.style.background='red';
+    table.deselectRow();
+    table.addRow({
+        enabled: true,
+        group: '',
+        annotation: '',
+        tags: '',
+        cssselector: '',
+        initaldelay: 0,
+        repeatdelay: 0,
+        randomrepeatvariance: 0,
+        urlregex: ''
+    },true);
+    hightlightChange();
 });
 
 ablebtn.addEventListener('click', async function (evt) {
     let changed = false;
-    const rows = table.getSelectedRows();
-    for(const row of rows){
+    table.getSelectedRows().forEach( (row) => {
         const cell = row.getCell('enabled');
         if(cell.setValue(!cell.getValue())){
             changed = true;
         }
-    }
+    });
     if(changed){
-        savbtn.style.background='red';
+        hightlightChange();
     }
 });
 
 delbtn.addEventListener('click', async function (evt) {
     let changed = false;
-    const rows = table.getSelectedRows();
-    for(const row of rows){
+    table.getSelectedRows().forEach( (row) =>  {
         row.delete();
         changed = true;
-    }
+    });
     if(changed){
-        savbtn.style.background='red';
+        hightlightChange();
     }
-
 });
-savbtn.addEventListener('click', async function (evt) {
+
+discbtn.addEventListener('click', (evt)=> {
+    window.location.reload();
+});
+
+savbtn.addEventListener('click', (evt)=> {
     let data = table.getData();
     let i=0;
     for(i=0; i<data.length;i++){
@@ -60,24 +81,41 @@ savbtn.addEventListener('click', async function (evt) {
         data[i].initaldelay = parseInt(data[i].initaldelay);
         data[i].repeatdelay = parseInt(data[i].repeatdelay);
         data[i].randomrepeatvariance= parseInt(data[i].randomrepeatvariance);
-        data[i].pos = i;
+        data[i].idx = i;
     }
     browser.storage.local.set({ 'selectors': data })
     savbtn.style.background='lightgreen';
 });
 
 expbtn.addEventListener('click', async function (evt) {
-    var dl = document.createElement('a');
-    var data = table.getSelectedData();
-    for(i=0; i<data.length;i++){
-        data[i].initaldelay = parseInt(data[i].initaldelay);
-        data[i].repeatdelay = parseInt(data[i].repeatdelay);
-        data[i].randomrepeatvariance= parseInt(data[i].randomrepeatvariance);
-        data[i].pos = i;
-    }
-    const content = JSON.stringify(data,null,4);
-    dl.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(content));
-    dl.setAttribute('download', 'data.json');
+
+    let selectedRows = table.getSelectedRows();
+
+    // order the selected by position
+
+    selectedRows.sort( (a,b) => {
+        return b.getPosition() - a.getPosition();
+    });
+
+
+    let idx_count = 0;
+
+    // fixup the export data
+    const expData = [];
+    selectedRows.forEach( (row) => {
+        const rowData = row.getData();
+        rowData.initaldelay = parseInt(rowData.initaldelay);
+        rowData.repeatdelay = parseInt(rowData.repeatdelay);
+        rowData.randomrepeatvariance= parseInt(rowData.randomrepeatvariance);
+        rowData.idx = idx_count;
+        expData.push(rowData);
+    });
+    const content = JSON.stringify(expData,null,4);
+    console.log(content);
+    let dl = document.createElement('a');
+    const href = 'data:application/json;charset=utf-8,' + encodeURIComponent(content);
+    dl.setAttribute('href', href);
+    dl.setAttribute('download', extId + '-rules.json');
     dl.setAttribute('visibility', 'hidden');
     dl.setAttribute('display', 'none');
     document.body.appendChild(dl);
@@ -116,7 +154,7 @@ impbtn.addEventListener('input', function (evt) {
                     savbtn.style.background='red';
                 }
             } catch (e) {
-                console.error('error loading file: ' + e);
+                log('ERROR','error loading file ' + e);
             }
         };
         reader.readAsText(file);
@@ -141,33 +179,16 @@ async function onDOMContentLoaded() {
 
     table = new Tabulator("#mainTable", {
         height: "100%",
-        layout:"fitDataStretch",      //fit columns to width of table
-        responsiveLayout: "hide",  //hide columns that dont fit on the table
-        tooltips:true,            //show tool tips on cells
-        addRowPos:"top",          //when adding a new row, add it to the top of the table
-        //history:true,             //allow undo and redo actions on the table
-        //pagination:"local",       //paginate the data
-        pagination: false,       //paginate the data
-        //paginationSize: 25,         //allow 7 rows per page of data
-        //movableColumns:true,      //allow column order to be changed
-        //resizableRows:true,       //allow row order to be changed
+        layout:"fitDataStretch",  //fit columns to width of table
+        responsiveLayout: "hide", //hide columns that dont fit on the table
+        pagination: false,  //paginate the data
         movableRows: true,
-        /*initialSort:[             //set the initial sort order of the data
-            {column:"group", dir:"asc"},
-            //{column:"action", dir:"asc"},
-        ],*/
         groupBy: "group",
         groupUpdateOnCellEdit:true,
-        /*groupStartOpen:function(value, count, data, group){
-            //value - the value all members of this group share
-            //count - the number of rows in this group
-            //data - an array of all the row data objects in this group
-            //group - the group component for the group
-
-            return count < 3; //all groups with less than three rows start open, any with three or less start closed
-        },*/
-        groupStartOpen: true,
-        layoutColumnsOnNewData:true,
+        groupStartOpen: false,
+        initialSort: [
+            {column: "group", dir: "asc"},
+        ],
         columns:[
             {rowHandle:true, formatter:"handle", headerSort:false, frozen:true, width:30, minWidth:30, },
             {formatter:"rowSelection", titleFormatter:"rowSelection", width:30, minWidth:30, hozAlign:"left", headerSort:false, cellClick:function(e, cell){
@@ -190,30 +211,41 @@ async function onDOMContentLoaded() {
         ],
     });
 
-    table.on("cellEdited", function(cell){
-            const new_val = cell.getValue();
-            const old_val = cell.getOldValue();
-            if(new_val != old_val){
-                savbtn.style.background='red';
-            }
-    });
 
-    table.on("rowMoved", function(row){
-        savbtn.style.background='red';
-    });
-
+    // Load data
     const data = await getTblData();
     data.forEach((e) => {
         table.addRow(e,true);
     });
 
-    table.on("groupClick", function(e, group){
-        const rows = group.getRows();
-        for(const row of rows){
-            row.toggleSelect();
+    /**
+     * Register Table Events
+     */
+    // hlchange if values change
+    table.on("cellEdited", function(cell){
+        if(cell.getValue() !== cell.getOldValue()){
+            hightlightChange();
         }
     });
 
+    // todo: determine if the row actually moved
+    table.on("rowMoved", function(row){
+        hightlightChange();
+    });
+
+    // invert the selected state of each row
+    table.on("groupClick", function(e, group){
+        group.getRows().forEach( (row) => {
+            row.toggleSelect();
+        });
+    });
+
+    // after adding a row, open the group it is in and highlight/select it
+    table.on("rowAdded", function(row){
+        var group = row.getGroup();
+        group.show();
+        row.select();
+    });
 }
 
 async function getTblData() {
@@ -226,18 +258,18 @@ async function getTblData() {
             // < 0 => a before b
             // === 0 => keep original order of a and b
 
-            if(typeof a.pos === 'undefined' && typeof b.pos === 'number'){
+            if(typeof a.idx === 'undefined' && typeof b.idx === 'number'){
                 return 1; // b before a
             }
-            if(typeof a.pos === 'number' && typeof b.pos === 'undefined'){
+            if(typeof a.idx === 'number' && typeof b.idx === 'undefined'){
                 return -1; // a before b
             }
 
-            if(typeof a.pos === 'number' && typeof b.pos === 'number'){
-                if(a.pos > b.pos){
+            if(typeof a.idx === 'number' && typeof b.idx === 'number'){
+                if(a.idx > b.idx){
                     return 1;
                 }
-                if(a.pos < b.pos){
+                if(a.idx < b.idx){
                     return -1;
                 }
             }

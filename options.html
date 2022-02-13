@@ -8,13 +8,14 @@
     <body style="background: lightgray">
         <p></p>
         <center>
-        <button style="background:lightgreen;" id="savbtn" > Save changes</button>
-        <button id="impbtn_wrapper" > Import Rules</button>
+        <button id="addbtn" type="button" name="addbtn" > Add New </button>
+        <button style="background:lightgreen;" id="savbtn" > Save Changes </button>
+        <button id="discbtn" > Discard Changes </button>
+        <button id="impbtn_wrapper" > Import/Add </button>
         <input id="impbtn" type="file" name="impbtn" value="" style="display:none" />
-        <button id="addbtn" type="button" name="addbtn" >Add Rule</button>
-        <button id="ablebtn" type="button" name="impbtn" >En/Disable Selected Rules</button>
-        <button id="expbtn" type="button" name="impbtn" >Export Selected Rules</button>
-        <button id="delbtn" type="button" name="impbtn" >Delete Selected Rules</button>
+        <button id="ablebtn" type="button" name="impbtn" >Invert Enabled (Selected)</button>
+        <button id="expbtn" type="button" name="impbtn" >Export (Selected)</button>
+        <button id="delbtn" type="button" name="impbtn" >Delete (Selected)</button>
         </center>
         <p></p>
         <table id="mainTable" border=1 style="width:100%;" ></table>
