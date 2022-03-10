@@ -27,49 +27,35 @@
 		}
 	}
 
-	const waitFor = (selectors, depth) => {
+    const waitFor = (selector, depth) => {
 
-		if(!Array.isArray(selectors.cssselector)) { return; }
+        log('debug', selector.cssselector);
 
-		if(depth >= MAX_WAIT_CYCLES){ selectors.cssselector.shift(); } // max_cycles goto next element
+        if(selector.repeatdelay > 0 && selector.maxrepeats === 0) { return; }
+        if(depth >= MAX_WAIT_CYCLES){ return; }
 
-		if(selectors.cssselector.length < 1) { return; }
+        let item = document.querySelector(selector.cssselector);
+        if( typeof item.click === 'function') {
+            item.click(); // click item
+            log('debug', 'item clicked');
+            depth = 0;
+            if(selector.maxrepeats > 0){
+                selector.maxrepeats--;
+            }
+        }else{
+            log('debug','item has no click function');
+        }
 
-		let clicked = false;
-
-		document.querySelectorAll(selectors.cssselector[0]).forEach( (item) => {
-			if( typeof item.click === 'function') {
-				item.click(); // click item
-				log('debug', 'item clicked');
-				clicked=true;
-			}else{
-				log('debug','item has no click function');
-			}
-		} );
-
-		if(selectors.repeatdelay > 0) {
-			let selector = JSON.parse(JSON.stringify(selectors));
-			selector.cssselector = [selector.cssselector[0]];
+        if(selector.repeatdelay > 0) {
             const min = (selector.repeatdelay - selector.randomrepeatvariance);
             const max = (selector.repeatdelay + selector.randomrepeatvariance);
             const tovalue = ((max - min) > 0) ? getRandomInt(min, max) : selector.repeatdelay;
-			log('debug','tovalue: ' + tovalue);
-			setTimeout(function() {
-				waitFor(selector, 0);
-			},tovalue);
-		}
-
-		if(selectors.repeatdelay > 0 || clicked === true){
-			depth = -1;
-			selectors.cssselector.shift();
-		}
-
-		if(selectors.cssselector.length > 0) {
-			setTimeout(function() {
-				waitFor(selectors, ++depth);
-			}, 250);
-		}
-	}
+            log('debug','tovalue: ' + tovalue);
+            setTimeout(function() {
+                waitFor(selector, 0);
+            },tovalue);
+        }
+    }
 
 	log( 'debug', 'temporary: ' + temporary);
 	try {
@@ -107,13 +93,14 @@
 		if ( typeof selector.cssselector !== 'string' ) { return; }
 		if ( selector.cssselector === '' ) { return; }
 
-		selector.cssselector = selector.cssselector.split(';');
+		//selector.cssselector = selector.cssselector.split(';');
 
 		log('debug', JSON.stringify(selector,null,4));
 
 		try {
 			setTimeout(function() {
 				let depth = 0;
+                selector.maxrepeats--;
 				waitFor(selector, depth)
 			}, selector.initaldelay || 3000); // wait initaldelay
 		}catch(e){
