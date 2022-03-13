@@ -23,11 +23,20 @@ const expbtn = document.getElementById('expbtn');
 const delbtn = document.getElementById('delbtn');
 const ablebtn = document.getElementById('ablebtn');
 const addbtn = document.getElementById('addbtn');
+const tgladv = document.getElementById('tgladv');
 
 
 function hightlightChange(){
     savbtn.style.background='red';
 }
+
+tgladv.addEventListener('click', async function (evt) {
+    table.toggleColumn('tags');
+    table.toggleColumn('annotation');
+    table.toggleColumn('repeatdelay');
+    table.toggleColumn('maxrepeats');
+    table.toggleColumn('randomrepeatvariance');
+});
 
 addbtn.addEventListener('click', async function (evt) {
     table.deselectRow();
@@ -37,7 +46,7 @@ addbtn.addEventListener('click', async function (evt) {
         annotation: '',
         tags: '',
         cssselector: '',
-        initaldelay: 0,
+        initaldelay: 1000,
         repeatdelay: 0,
         maxrepeats: 0,
         randomrepeatvariance: 0,
@@ -146,7 +155,7 @@ impbtn.addEventListener('input', function (evt) {
                         annotation: selector.annotation || '',
                         tags: selector.tags || '',
                         cssselector: selector.code || selector.cssselector || '',
-                        initaldelay: parseInt(selector.delay || selector.initaldelay || 0),
+                        initaldelay: parseInt(selector.delay || selector.initaldelay || 1000),
                         repeatdelay: parseInt(selector.repeat || selector.repeatdelay || 0),
                         maxrepeats: parseInt(selector.maxrepeats || 0),
                         randomrepeatvariance: parseInt(selector.rvariance || selector.randomrepeatvariance || 0),
@@ -206,14 +215,23 @@ async function onDOMContentLoaded() {
                     verticalNavigation:"hybrid", //navigate to new row when at the top or bottom of the selection lis
                     multiselect:true, //allow multiple entries to be selected
                 }
+                , visible: false
             },
-            {title:"Annotation", field:"annotation", maxWidth: 240, headerFilter:"input", headerFilterPlaceholder:"Text filter", editor:"input", sorter: "string", sorterParams: {locale: true, alignEmptyValues: "top"}},
+            {title:"Annotation", field:"annotation", maxWidth: 240, headerFilter:"input", headerFilterPlaceholder:"Text filter", editor:"input", sorter: "string", sorterParams: {locale: true, alignEmptyValues: "top"}
+                ,visible : false
+            },
             {title:"Inital <br/>Delay", width: 80, field:"initaldelay", sorter:"number", editor:"input", headerSort: false, validator: ['required','min:0', 'integer'] },
-            {title:"Repeat <br/>Delay", width: 80, field:"repeatdelay", sorter:"number", editor:"input", headerSort: false, validator: ['required','min:0', 'integer']},
-            {title:"Max <br/>Repeats", width: 80, field:"maxrepeats", sorter:"number", editor:"input", headerSort: false, validator: ['required','min:0', 'integer']},
-            {title:'<acronym title="Random Repeat Variance" style="text-decoration-style:dashed;">RRV</acronym>', headerSort: false, width: 80, field:"randomrepeatvariance", sorter:"number", editor:"input", validator: ['required','min:0', 'integer']},
-            {title:"CSS Selector", field:"cssselector", width:"25%",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"textarea", editorParams: { verticalNavigation: "editor", } ,formatter: "plaintext"},
-            {title:'URL Regular Expression', width:"25%",field:"urlregex",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"input"},
+            {title:"Repeat <br/>Delay", width: 80, field:"repeatdelay", sorter:"number", editor:"input", headerSort: false, validator: ['required','min:0', 'integer']
+                ,visible : false
+            },
+            {title:"Max <br/>Repeats", width: 80, field:"maxrepeats", sorter:"number", editor:"input", headerSort: false, validator: ['required','min:0', 'integer']
+                ,visible : false
+            },
+            {title:'<acronym title="Random Repeat Variance" style="text-decoration-style:dashed;">RRV</acronym>', headerSort: false, width: 80, field:"randomrepeatvariance", sorter:"number", editor:"input", validator: ['required','min:0', 'integer']
+                ,visible : false
+            },
+            {title:"CSS Selector (*)", field:"cssselector", width:"25%",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"textarea", editorParams: { verticalNavigation: "editor", } ,formatter: "plaintext"},
+            {title:'URL Regular Expression (*)', width:"25%",field:"urlregex",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"input"},
         ],
     });
 

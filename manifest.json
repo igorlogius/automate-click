@@ -2,7 +2,7 @@
   "author": "igorlogius",
   "browser_action": {
     "browser_style": true,
-    "default_title" : "edit automate-click actions"
+    "default_title" : "Open AC Rules"
   },
   "background": {
 	"scripts": ["background.js"]
@@ -18,7 +18,7 @@
       ]
     }
   ],
-  "description": "automate click actions when opening a website",
+  "description": "automate click actions on websites",
   "icons": {
     "128": "icon.png"
   },
@@ -33,5 +33,5 @@
     "activeTab",
     "storage"
   ],
-  "version": "1.9.4"
+  "version": "1.10.0"
 }
