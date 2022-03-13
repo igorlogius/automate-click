@@ -80,10 +80,16 @@ delbtn.addEventListener('click', async function (evt) {
 });
 
 discbtn.addEventListener('click', (evt)=> {
+    if (!window.confirm("Discard changes?")) {
+        return;
+    }
     window.location.reload();
 });
 
 savbtn.addEventListener('click', (evt)=> {
+    if (!window.confirm("Save changes?")) {
+        return;
+    }
     let data = table.getData();
     let i=0;
     for(i=0; i<data.length;i++){
