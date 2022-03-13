@@ -7,17 +7,19 @@
     </head>
     <body style="background: lightgray">
         <p></p>
-        <center>
-        <button id="addbtn" type="button" name="addbtn" > Add New </button>
-        <button style="background:lightgreen;" id="savbtn" > Save Changes </button>
-        <button id="discbtn" > Discard Changes </button>
-        <button id="impbtn_wrapper" > Import/Add </button>
-        <input id="impbtn" type="file" name="impbtn" value="" style="display:none" />
-        <button id="ablebtn" type="button" name="impbtn" >Invert Enabled (Selected)</button>
-        <button id="expbtn" type="button" name="impbtn" >Export (Selected)</button>
-        <button id="delbtn" type="button" name="impbtn" >Delete (Selected)</button>
-        <button id="tgladv" type="button" name="tgladv" >Toggle Advanced</button>
-        </center>
+        <fieldset>
+            <button id="addbtn" type="button" name="addbtn" title="create a new empty rule"> New </button>
+            <button id="impbtn_wrapper" title="import rules from a file to add"> Import </button>
+            <input id="impbtn" type="file" name="impbtn" value="" style="display:none" />
+            <button id="expbtn" type="button" name="impbtn" title="export selected rules" >Export</button>
+            <button id="ablebtn" type="button" name="impbtn" style="display:none;" title="invert the enabled state of selected rules" >Enabled^-1 </button>
+            <button id="delbtn" type="button" name="impbtn" title="delete selected rules">Delete </button>
+            <button style="background:lightgreen;" id="savbtn" title="save changes"> Save </button>
+            <button id="discbtn" title="discard changes"> Discard </button>
+            <div style="float:right;">
+                <button id="tgladv" type="button" name="tgladv" title="show/hide more options" >More Options</button>
+            </div>
+        </fieldset>
         <p></p>
         <table id="mainTable" border=1 style="width:100%;height:80vh;" ></table>
         <span>Columns marked with (*) are required</span>
