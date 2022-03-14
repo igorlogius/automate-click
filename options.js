@@ -236,8 +236,10 @@ async function onDOMContentLoaded() {
             {title:'<acronym title="Random Repeat Variance" style="text-decoration-style:dashed;">RRV</acronym>', headerSort: false, width: 80, field:"randomrepeatvariance", sorter:"number", editor:"input", validator: ['required','min:0', 'integer']
                 ,visible : false
             },
-            {title:"CSS Selector (*)", field:"cssselector", width:"25%",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"textarea", editorParams: { verticalNavigation: "editor", } ,formatter: "plaintext"},
-            {title:'URL Regular Expression (*)', width:"25%",field:"urlregex",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"input"},
+            {title:'CSS Selector (*)(<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors">help</a>)', field:"cssselector", width:"25%",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"textarea", editorParams: { verticalNavigation: "editor", } ,formatter: "plaintext"
+            },
+            {title:'URL Regular Expression (*) (<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">help</a>)', width:"25%",field:"urlregex",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"input"
+            },
         ],
     });
 
