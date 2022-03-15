@@ -198,8 +198,8 @@ async function onDOMContentLoaded() {
 
     table = new Tabulator("#mainTable", {
         //height: "100%",
-        virtualDom:false, //disable virtual DOM rendering
-        layout:"fitDataStretch",  //fit columns to width of table
+        virtualDom: false, //disable virtual DOM rendering
+        layout: "fitDataStretch",  //fit columns to width of table
         responsiveLayout: "hide", //hide columns that dont fit on the table
         pagination: false,  //paginate the data
         movableRows: true,
@@ -218,7 +218,7 @@ async function onDOMContentLoaded() {
             {title:"Group", field:"group", headerFilter:"input", headerFilterPlaceholder:"Text filter", width:120, editor:"input", sorter: "string", sorterParams: {locale: true, alignEmptyValues: "top"}},
             {title:"Tags", field:"tags", width: 120, headerFilter:"select", headerFilterPlaceholder:"Multiselect", editor:"input", sorter: "string", sorterParams: {locale: true, alignEmptyValues: "bottom"} , headerFilterParams:{
                     values: tagValuesLookup, // get values
-                    verticalNavigation:"hybrid", //navigate to new row when at the top or bottom of the selection lis
+                    verticalNavigation:"hybrid", //navigate to new row when at the top or bottom of the selection list
                     multiselect:true, //allow multiple entries to be selected
                 }
                 , visible: false
@@ -236,9 +236,9 @@ async function onDOMContentLoaded() {
             {title:'<acronym title="Random Repeat Variance" style="text-decoration-style:dashed;">RRV</acronym>', headerSort: false, width: 80, field:"randomrepeatvariance", sorter:"number", editor:"input", validator: ['required','min:0', 'integer']
                 ,visible : false
             },
-            {title:'CSS Selector (*)(<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors">help</a>)', field:"cssselector", width:"25%",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"textarea", editorParams: { verticalNavigation: "editor", } ,formatter: "plaintext"
+            {title:'CSS Selector (*)(<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors">?</a>)', field:"cssselector", width:"25%",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"textarea", editorParams: { verticalNavigation: "editor", } ,formatter: "plaintext"
             },
-            {title:'URL Regular Expression (*) (<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">help</a>)', width:"25%",field:"urlregex",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"input"
+            {title:'URL Regular Expression (*)(<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Cheatsheet">?</a>)', width:"25%",field:"urlregex",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"input"
             },
         ],
     });
