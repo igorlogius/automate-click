@@ -13,7 +13,6 @@
 
 	let store = {};
 	const extId = 'automate-click';
-	const MAX_WAIT_CYCLES = 50;
 
 	const temporary = browser.runtime.id.endsWith('@temporary-addon'); // debugging?
 
@@ -27,35 +26,37 @@
 		}
 	}
 
-    const waitFor = (selector, depth) => {
+    const waitFor = (selector) => {
 
-        log('debug', selector.cssselector);
+		log('debug', JSON.stringify(selector,null,4));
 
         if(selector.repeatdelay > 0 && selector.maxrepeats === 0) { return; }
-        if(depth >= MAX_WAIT_CYCLES){ return; }
 
-        let item = document.querySelector(selector.cssselector);
-        if( typeof item.click === 'function') {
-            item.click(); // click item
-            log('debug', 'item clicked');
-            depth = 0;
-            if(selector.maxrepeats > 0){
-                selector.maxrepeats--;
+        if(selector.maxrepeats > 0){
+            selector.maxrepeats--;
+        }
+
+        for(const item of document.querySelectorAll(selector.cssselector)) {
+            if(item) {
+                if( typeof item.click === 'function') {
+                    item.click(); // click item
+                    log('debug', 'item clicked');
+                }else{
+                    log('warn','item has no click function');
+                }
             }
-        }else{
-            log('debug','item has no click function');
         }
 
         if(selector.repeatdelay > 0) {
             const min = (selector.repeatdelay - selector.randomrepeatvariance);
             const max = (selector.repeatdelay + selector.randomrepeatvariance);
             const tovalue = ((max - min) > 0) ? getRandomInt(min, max) : selector.repeatdelay;
-            log('debug','tovalue: ' + tovalue);
+            log('debug','waitTime: ' + tovalue);
             setTimeout(function() {
-                waitFor(selector, 0);
+                waitFor(selector);
             },tovalue);
         }
-    }
+    } // waitFor end
 
 	log( 'debug', 'temporary: ' + temporary);
 	try {
@@ -75,37 +76,29 @@
 		return;
 	}
 
-	store.selectors.forEach( (selector) => {
+    store.selectors.forEach( (selector) => {
 
-		// check enabled
-		if(typeof selector.enabled !== 'boolean') { return; }
-		if(selector.enabled !== true) { return; }
+        // check enabled
+        if(typeof selector.enabled !== 'boolean') { return; }
+        if(selector.enabled !== true) { return; }
 
-		// check url regex
-		if(typeof selector.urlregex !== 'string') { return; }
-		selector.urlregex = selector.urlregex.trim();
-		if(selector.urlregex === ''){ return; }
+        // check url regex
+        if(typeof selector.urlregex !== 'string') { return; }
+        selector.urlregex = selector.urlregex.trim();
+        if(selector.urlregex === ''){ return; }
 
-		if(!(new RegExp(selector.urlregex)).test(window.location.href)){ return; }
+        if(!(new RegExp(selector.urlregex)).test(window.location.href)){ return; }
 
-		log('debug', window.location.href);
+        log('debug', window.location.href);
 
-		if ( typeof selector.cssselector !== 'string' ) { return; }
-		if ( selector.cssselector === '' ) { return; }
+        if ( typeof selector.cssselector !== 'string' ) { return; }
+        if ( selector.cssselector === '' ) { return; }
 
-		//selector.cssselector = selector.cssselector.split(';');
-
-		log('debug', JSON.stringify(selector,null,4));
-
-		try {
-			setTimeout(function() {
-				let depth = 0;
-                selector.maxrepeats--;
-				waitFor(selector, depth)
-			}, selector.initaldelay || 3000); // wait initaldelay
-		}catch(e){
-			log('WARN', 'cssselector execution failed :' + selector.cssselector + " initaldelay: " + selectors.initaldelay);
-		}
-	});
+        log('debug', JSON.stringify(selector,null,4));
+        setTimeout(function() {
+            selector.maxrepeats--; // negativ maxrepeats will continue forever
+            waitFor(selector)
+        }, selector.initaldelay || 3000); // wait initaldelay
+    });
 
 })();
