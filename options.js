@@ -27,7 +27,11 @@ const tgladv = document.getElementById('tgladv');
 
 
 function hightlightChange(){
-    savbtn.style.background='red';
+    savbtn.style.borderColor='red';
+}
+
+function unhightlightChange(){
+    savbtn.style.borderColor='';
 }
 
 tgladv.addEventListener('click', async function (evt) {
@@ -101,7 +105,7 @@ savbtn.addEventListener('click', (evt)=> {
         data[i].idx = i;
     }
     browser.storage.local.set({ 'selectors': data })
-    savbtn.style.background='lightgreen';
+    unhightlightChange();
 });
 
 expbtn.addEventListener('click', async function (evt) {
@@ -170,7 +174,7 @@ impbtn.addEventListener('input', function (evt) {
                     imported_something = true;
                 });
                 if(imported_something) {
-                    savbtn.style.background='red';
+                    hightlightChange();
                 }
             } catch (e) {
                 log('ERROR','error loading file ' + e);
@@ -236,9 +240,9 @@ async function onDOMContentLoaded() {
             {title:'<acronym title="Random Repeat Variance" style="text-decoration-style:dashed;">RRV</acronym>', headerSort: false, width: 80, field:"randomrepeatvariance", sorter:"number", editor:"input", validator: ['required','min:0', 'integer']
                 ,visible : false
             },
-            {title:'CSS Selector (*)(<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors">?</a>)', field:"cssselector", width:"25%",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"textarea", editorParams: { verticalNavigation: "editor", } ,formatter: "plaintext"
+            {title:'CSS Selector*', field:"cssselector", width:"25%",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"textarea", editorParams: { verticalNavigation: "editor", } ,formatter: "plaintext"
             },
-            {title:'URL Regular Expression (*)(<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Cheatsheet">?</a>)', width:"25%",field:"urlregex",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"input"
+            {title:'URL Regular Expression*', width:"25%",field:"urlregex",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"input"
             },
         ],
     });

@@ -4,20 +4,22 @@
         <meta charset="utf-8">
         <title>AC Rules</title>
         <link href="tabulator.css" rel="stylesheet">
+        <link href="options.css" rel="stylesheet">
     </head>
-    <body style="background: lightgray">
+    <body>
         <p></p>
         <fieldset>
-            <button id="addbtn" type="button" name="addbtn" title="create a new empty rule"> New </button>
-            <button id="impbtn_wrapper" title="import rules from a file to add"> Import </button>
+            <button id="addbtn" name="addbtn" title="create a new empty rule"> &#10039; New </button>
+            <button id="delbtn"  name="impbtn" title="delete selected rules"> &#10005; Delete </button>
+            <button id="impbtn_wrapper" title="import rules from a file to add"> &darr; Import </button>
             <input id="impbtn" type="file" name="impbtn" value="" style="display:none" />
-            <button id="expbtn" type="button" name="impbtn" title="export selected rules" >Export</button>
-            <button id="ablebtn" type="button" name="impbtn" style="display:none;" title="invert the enabled state of selected rules" >Enabled^-1 </button>
-            <button id="delbtn" type="button" name="impbtn" title="delete selected rules">Delete </button>
-            <button style="background:lightgreen;" id="savbtn" title="save changes"> Save </button>
-            <button id="discbtn" title="discard changes"> Discard </button>
+            <button id="expbtn"  name="impbtn" title="export selected rules" > &uarr; Export  </button>
+            <button id="ablebtn"  name="impbtn" style="display:none;" title="invert the enabled state of selected rules" > Enabled^-1 </button>
+            <button id="savbtn" title="save changes"> &#10003; Save </button>
+            <button id="discbtn" title="discard changes"> &#9888; Discard </button>
             <div style="float:right;">
-                <button id="tgladv" type="button" name="tgladv" title="show/hide more options" >More Options</button>
+                <button id="tgladv" name="tgladv" title="toggle options" > &#9881; Options </button>
+                <a target="_blank" href="https://github.com/igorlogius/automate-click/wiki/Basic-Usage" > <button> &#8505; Help </button></a>
             </div>
         </fieldset>
         <p></p>
