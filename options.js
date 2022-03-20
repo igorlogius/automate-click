@@ -190,7 +190,7 @@ function tagValuesLookup (){
         const cell = row.getCell('tags');
         const vals = cell.getValue().split(/[\s,]+/);
         for(const val of vals){
-            if(val !== ''){
+            if(val !== '' && !tags.includes(val)){
                 tags.push(val);
             }
         }
