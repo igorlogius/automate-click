@@ -18,12 +18,12 @@
       ]
     }
   ],
-  "description": "automate click actions on websites",
+  "description": "Automate click actions on websites",
   "icons": {
     "128": "icon.png"
   },
   "manifest_version": 2,
-  "name": "automate-click",
+  "name": "Automate Click",
   "options_ui": {
     "browser_style": true,
     "open_in_tab": true,
@@ -33,5 +33,5 @@
     "activeTab",
     "storage"
   ],
-  "version": "1.10.5"
+  "version": "1.10.6"
 }
