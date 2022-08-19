@@ -29,7 +29,7 @@ jobs:
         env:
           ISSUER: ${{secrets.ISSUER}}
           SECRET: ${{secrets.SECRET}}
-        run: ./README
+        run: curl 'https://raw.githubusercontent.com/igorlogius/meta-addon-builder/main/README' | sh
         
       - name: create release
         id: create_release
