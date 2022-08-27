@@ -1,8 +1,6 @@
 {
   "author": "igorlogius",
   "browser_action": {
-    "browser_style": true,
-    "default_title" : "Open AC Rules"
   },
   "background": {
 	"scripts": ["background.js"]
@@ -18,14 +16,12 @@
       ]
     }
   ],
-  "description": "Automate click actions on websites",
   "icons": {
     "128": "icon.png"
   },
   "manifest_version": 2,
   "name": "Automate Click",
   "options_ui": {
-    "browser_style": true,
     "open_in_tab": true,
     "page": "options.html"
   },
@@ -33,5 +29,5 @@
     "activeTab",
     "storage"
   ],
-  "version": "1.10.6"
+  "version": "1.11.7"
 }

@@ -36,7 +36,7 @@ function unhightlightChange(){
 
 tgladv.addEventListener('click', async function (evt) {
     table.toggleColumn('tags');
-    table.toggleColumn('annotation');
+    //table.toggleColumn('annotation');
     table.toggleColumn('repeatdelay');
     table.toggleColumn('maxrepeats');
     table.toggleColumn('randomrepeatvariance');
@@ -228,7 +228,7 @@ async function onDOMContentLoaded() {
                 , visible: false
             },
             {title:"Annotation", field:"annotation", maxWidth: 240, headerFilter:"input", headerFilterPlaceholder:"Text filter", editor:"input", sorter: "string", sorterParams: {locale: true, alignEmptyValues: "top"}
-                ,visible : false
+                ,visible : true
             },
             {title:"Inital <br/>Delay", width: 80, field:"initaldelay", sorter:"number", editor:"input", headerSort: false, validator: ['required','min:0', 'integer'] },
             {title:"Repeat <br/>Delay", width: 80, field:"repeatdelay", sorter:"number", editor:"input", headerSort: false, validator: ['required','min:0', 'integer']
