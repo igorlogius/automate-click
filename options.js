@@ -42,6 +42,24 @@ tgladv.addEventListener('click', async function (evt) {
     table.toggleColumn('randomrepeatvariance');
 });
 
+function addNewRowWithData(regex) {
+    console.log('addNewRowWithData', regex);
+    table.deselectRow();
+    table.addRow({
+        enabled: true,
+        group: '',
+        annotation: '',
+        tags: '',
+        cssselector: '',
+        initaldelay: 1000,
+        repeatdelay: 0,
+        maxrepeats: 0,
+        randomrepeatvariance: 0,
+        urlregex: regex
+    },true);
+    hightlightChange();
+}
+
 addbtn.addEventListener('click', async function (evt) {
     table.deselectRow();
     table.addRow({
@@ -282,6 +300,24 @@ async function onDOMContentLoaded() {
         group.show();
         row.select();
     });
+
+    let params = (new URL(document.location)).searchParams;
+    let url = params.get('url'); // is the string "Jonathan Smith".
+
+
+    if(url) {
+
+        let regex = "^" + url.replaceAll("/","\\/");
+            regex = regex.replaceAll('.','\\.');
+            regex = regex + ".*";
+            //console.log('regex', regex);
+
+        //let origin =  (new URL(url)).origin;
+        //todo: maybe make permission requeste based on this, problem is, that regex might match multiple domains ... but to be fair that is pretty unlikely ... so maybe its ok?
+
+        addNewRowWithData(regex);
+    }
+
 }
 
 async function getTblData() {
