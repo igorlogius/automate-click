@@ -36,13 +36,23 @@
             selector.maxrepeats--;
         }
 
-        for(const item of document.querySelectorAll(selector.cssselector)) {
-            if(item) {
-                if( typeof item.click === 'function') {
-                    item.click(); // click item
-                    log('debug', 'item clicked');
-                }else{
-                    log('warn','item has no click function');
+        if(selector.xclickpos > 0 || selector.yclickpos > 0) {
+            const elem = document.elementFromPoint(selector.xclickpos, selector.yclickpos);
+            if(typeof elem.click === 'function') {
+                elem.click();
+                log('debug', 'item by coordinates clicked');
+            }else{
+                log('warn','item by coordinates has no click function');
+            }
+        }else {
+            for(const item of document.querySelectorAll(selector.cssselector)) {
+                if(item) {
+                    if( typeof item.click === 'function') {
+                        item.click(); // click item
+                        log('debug', 'item by selector clicked');
+                    }else{
+                        log('warn','item by selector has no click function');
+                    }
                 }
             }
         }
@@ -91,8 +101,8 @@
 
         log('debug', window.location.href);
 
-        if ( typeof selector.cssselector !== 'string' ) { return; }
-        if ( selector.cssselector === '' ) { return; }
+        //if ( typeof selector.cssselector !== 'string' ) { return; }
+        //if ( selector.cssselector === '' && selector.xclickpos === 0 && selector.yclickpos === 0) { return; }
 
         log('debug', JSON.stringify(selector,null,4));
         setTimeout(function() {

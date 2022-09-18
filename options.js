@@ -40,6 +40,8 @@ tgladv.addEventListener('click', async function (evt) {
     table.toggleColumn('repeatdelay');
     table.toggleColumn('maxrepeats');
     table.toggleColumn('randomrepeatvariance');
+    table.toggleColumn('xclickpos');
+    table.toggleColumn('yclickpos');
 });
 
 function addNewRowWithData(regex) {
@@ -55,7 +57,9 @@ function addNewRowWithData(regex) {
         repeatdelay: 0,
         maxrepeats: 0,
         randomrepeatvariance: 0,
-        urlregex: regex
+        urlregex: regex,
+        xclickpos: 0,
+        yclickpos: 0
     },true);
     hightlightChange();
 }
@@ -72,7 +76,9 @@ addbtn.addEventListener('click', async function (evt) {
         repeatdelay: 0,
         maxrepeats: 0,
         randomrepeatvariance: 0,
-        urlregex: ''
+        urlregex: '',
+        xclickpos: 0,
+        yclickpos: 0
     },true);
     hightlightChange();
 });
@@ -119,6 +125,8 @@ savbtn.addEventListener('click', (evt)=> {
         data[i].initaldelay = parseInt(data[i].initaldelay);
         data[i].repeatdelay = parseInt(data[i].repeatdelay);
         data[i].maxrepeats = parseInt(data[i].maxrepeats);
+        data[i].xclickpos = parseInt(data[i].xclickpos);
+        data[i].yclickpos = parseInt(data[i].yclickpos);
         data[i].randomrepeatvariance= parseInt(data[i].randomrepeatvariance);
         data[i].idx = i;
     }
@@ -187,7 +195,9 @@ impbtn.addEventListener('input', function (evt) {
                         repeatdelay: parseInt(selector.repeat || selector.repeatdelay || 0),
                         maxrepeats: parseInt(selector.maxrepeats || 0),
                         randomrepeatvariance: parseInt(selector.rvariance || selector.randomrepeatvariance || 0),
-                        urlregex: selector.url_regex || selector.urlregex || ''
+                        urlregex: selector.url_regex || selector.urlregex || '',
+                        xclickpos: 0,
+                        yclickpos: 0,
                     }, false);
                     imported_something = true;
                 });
@@ -258,10 +268,16 @@ async function onDOMContentLoaded() {
             {title:'<acronym title="Random Repeat Variance" style="text-decoration-style:dashed;">RRV</acronym>', headerSort: false, width: 80, field:"randomrepeatvariance", sorter:"number", editor:"input", validator: ['required','min:0', 'integer']
                 ,visible : false
             },
+            {title:"X-Click<br/>Position", width: 80, field:"xclickpos", sorter:"number", editor:"input", headerSort: false, validator: ['required','min:0', 'integer']
+                ,visible : false
+            },
+            {title:"Y-Click<br/>Position", width: 80, field:"yclickpos", sorter:"number", editor:"input", headerSort: false, validator: ['required','min:0', 'integer']
+                ,visible : false
+            },
             {title:'CSS Selector*', field:"cssselector", width:"25%",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"textarea", editorParams: { verticalNavigation: "editor", } ,formatter: "plaintext"
             },
             {title:'URL Regular Expression*', width:"25%",field:"urlregex",headerFilter:"input", headerFilterPlaceholder:"Text filter",editor:"input"
-            },
+            }
         ],
     });
 
@@ -360,7 +376,9 @@ async function getTblData() {
                 repeatdelay: selector.repeat || selector.repeatdelay || 0,
                 maxrepeats: selector.maxrepeats || 0,
                 randomrepeatvariance: parseInt(selector.rvariance || selector.randomrepeatvariance || 0),
-                urlregex: selector.url_regex || selector.urlregex || ''
+                urlregex: selector.url_regex || selector.urlregex || '',
+                xclickpos: selector.xclickpos|| 0,
+                yclickpos: selector.yclickpos|| 0
             });
         });
     }
