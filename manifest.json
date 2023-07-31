@@ -1,19 +1,16 @@
 {
   "author": "igorlogius",
   "browser_action": {
+    "default_area": "navbar"
   },
   "background": {
-	"scripts": ["background.js"]
+    "scripts": ["background.js"]
   },
   "content_scripts": [
     {
       "all_frames": true,
-      "js": [
-        "content-script.js"
-      ],
-      "matches": [
-        "<all_urls>"
-      ]
+      "js": ["content-script.js"],
+      "matches": ["<all_urls>"]
     }
   ],
   "icons": {
@@ -25,9 +22,6 @@
     "open_in_tab": true,
     "page": "options.html"
   },
-  "permissions": [
-    "activeTab",
-    "storage"
-  ],
-  "version": "1.13.7"
+  "permissions": ["webNavigation", "activeTab", "storage"],
+  "version": "1.14.7"
 }

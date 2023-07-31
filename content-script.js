@@ -1,114 +1,90 @@
+const extId = "automate-click";
+const temporary = browser.runtime.id.endsWith("@temporary-addon"); // debugging?
 
-(async () => {
+let runningTIDs = [];
 
-    function getRandomInt(min, max) {
-        if(max <= min) return 0;
-        return Math.floor(Math.random() * (max - min)) + min;
+const log = (level, msg) => {
+  level = level.trim().toLowerCase();
+  if (
+    ["error", "warn"].includes(level) ||
+    (temporary && ["debug", "info", "log"].includes(level))
+  ) {
+    console[level](extId + "::" + level.toUpperCase() + "::" + msg);
+    return;
+  }
+};
+
+function getRandomInt(min, max) {
+  if (max <= min) return 0;
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function waitFor(selector) {
+  log("debug", JSON.stringify(selector, null, 4));
+
+  if (selector.repeatdelay > 0 && selector.maxrepeats === 0) {
+    return;
+  }
+
+  if (selector.maxrepeats > 0) {
+    selector.maxrepeats--;
+  }
+
+  if (selector.xclickpos > 0 || selector.yclickpos > 0) {
+    const elem = document.elementFromPoint(
+      selector.xclickpos,
+      selector.yclickpos
+    );
+    if (typeof elem.click === "function") {
+      elem.click();
+      log("debug", "item by coordinates clicked");
+    } else {
+      log("warn", "item by coordinates has no click function");
     }
-
-	if (typeof window.automateclick_hasRun !== 'undefined'){
-		return;
-	}
-	window.automateclick_hasRun = true;
-
-	let store = {};
-	const extId = 'automate-click';
-
-	const temporary = browser.runtime.id.endsWith('@temporary-addon'); // debugging?
-
-	const log = (level, msg) => {
-		level = level.trim().toLowerCase();
-		if (['error','warn'].includes(level)
-			|| ( temporary && ['debug','info','log'].includes(level))
-		) {
-			console[level](extId + '::' + level.toUpperCase() + '::' + msg);
-			return;
-		}
-	}
-
-    const waitFor = (selector) => {
-
-		log('debug', JSON.stringify(selector,null,4));
-
-        if(selector.repeatdelay > 0 && selector.maxrepeats === 0) { return; }
-
-        if(selector.maxrepeats > 0){
-            selector.maxrepeats--;
+  } else {
+    for (const item of document.querySelectorAll(selector.cssselector)) {
+      if (item) {
+        if (typeof item.click === "function") {
+          item.click(); // click item
+          log("debug", "item by selector clicked");
+        } else {
+          log("warn", "item by selector has no click function");
         }
+      }
+    }
+  }
 
-        if(selector.xclickpos > 0 || selector.yclickpos > 0) {
-            const elem = document.elementFromPoint(selector.xclickpos, selector.yclickpos);
-            if(typeof elem.click === 'function') {
-                elem.click();
-                log('debug', 'item by coordinates clicked');
-            }else{
-                log('warn','item by coordinates has no click function');
-            }
-        }else {
-            for(const item of document.querySelectorAll(selector.cssselector)) {
-                if(item) {
-                    if( typeof item.click === 'function') {
-                        item.click(); // click item
-                        log('debug', 'item by selector clicked');
-                    }else{
-                        log('warn','item by selector has no click function');
-                    }
-                }
-            }
-        }
+  if (selector.repeatdelay > 0) {
+    const min = selector.repeatdelay - selector.randomrepeatvariance;
+    const max = selector.repeatdelay + selector.randomrepeatvariance;
+    const tovalue =
+      max - min > 0 ? getRandomInt(min, max) : selector.repeatdelay;
+    log("debug", "waitTime: " + tovalue);
+    setTimeout(function () {
+      waitFor(selector);
+    }, tovalue);
+  }
+} // waitFor end
 
-        if(selector.repeatdelay > 0) {
-            const min = (selector.repeatdelay - selector.randomrepeatvariance);
-            const max = (selector.repeatdelay + selector.randomrepeatvariance);
-            const tovalue = ((max - min) > 0) ? getRandomInt(min, max) : selector.repeatdelay;
-            log('debug','waitTime: ' + tovalue);
-            setTimeout(function() {
-                waitFor(selector);
-            },tovalue);
-        }
-    } // waitFor end
+async function onMessage(selectors) {
+  runningTIDs.forEach((tid) => {
+    try {
+      clearTimeout(tid);
+    } catch (e) {
+      // noop
+    }
+  });
 
-	log( 'debug', 'temporary: ' + temporary);
-	try {
-		store = await browser.storage.local.get('selectors');
-	}catch(e){
-		log('error', 'access to rules storage failed');
-		return;
-	}
+  runningTIDs = [];
 
-	if ( typeof store.selectors !== 'object' ) {
-		log('error', 'rules selectors not available');
-		return;
-	}
+  selectors.forEach((selector) => {
+    runningTIDs.push(
+      setTimeout(function () {
+        selector.maxrepeats--; // negativ maxrepeats will continue forever
+        waitFor(selector);
+      }, selector.initaldelay || 3000)
+    ); // wait initaldelay
+  });
+}
 
-	if ( typeof store.selectors.forEach !== 'function' ) {
-		log('error', 'rules selectors not iterable');
-		return;
-	}
-
-    store.selectors.forEach( (selector) => {
-
-        // check enabled
-        if(typeof selector.enabled !== 'boolean') { return; }
-        if(selector.enabled !== true) { return; }
-
-        // check url regex
-        if(typeof selector.urlregex !== 'string') { return; }
-        selector.urlregex = selector.urlregex.trim();
-        if(selector.urlregex === ''){ return; }
-
-        if(!(new RegExp(selector.urlregex)).test(window.location.href)){ return; }
-
-        log('debug', window.location.href);
-
-        //if ( typeof selector.cssselector !== 'string' ) { return; }
-        //if ( selector.cssselector === '' && selector.xclickpos === 0 && selector.yclickpos === 0) { return; }
-
-        log('debug', JSON.stringify(selector,null,4));
-        setTimeout(function() {
-            selector.maxrepeats--; // negativ maxrepeats will continue forever
-            waitFor(selector)
-        }, selector.initaldelay || 3000); // wait initaldelay
-    });
-
-})();
+browser.runtime.onMessage.addListener(onMessage);

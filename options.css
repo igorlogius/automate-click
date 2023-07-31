@@ -1,8 +1,7 @@
 body {
-    background: lightgray;
+  background: lightgray;
 }
 
 button {
-    min-width: 5vw;
+  min-width: 5vw;
 }
-

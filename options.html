@@ -1,31 +1,40 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>AC Rules</title>
-        <link href="tabulator.css" rel="stylesheet">
-        <link href="options.css" rel="stylesheet">
-    </head>
-    <body>
-        <p></p>
-        <fieldset>
-            <button id="addbtn" title="create a new empty rule"> &#10039; New </button>
-            <button id="delbtn"  title="delete selected rules"> &#10005; Delete </button>
-            <button id="ablebtn" title="invert the enabled state of selected rules" > &#8652; State</button>
-            <button id="impbtn_wrapper" title="import rules from a file to add"> &darr; Import </button>
-            <input id="impbtn" type="file" value="" style="display:none" />
-            <button id="expbtn"  title="export selected rules" > &uarr; Export  </button>
-            <button id="savbtn" title="save changes"> &#10003; Save </button>
-            <button id="discbtn" title="discard changes"> &#9888; Discard </button>
-            <div style="float:right;">
-                <button id="tgladv" title="toggle options" > &#9881; Options </button>
-                <a target="_blank" href="https://github.com/igorlogius/automate-click/wiki/Basic-Usage" > <button> &#8505; Help </button></a>
-            </div>
-        </fieldset>
-        <p></p>
-        <table id="mainTable" border=1 style="width:100%;height:80vh;" ></table>
-        <span>Columns marked with (*) are required</span>
-        <script src="tabulator.js"></script>
-        <script src="options.js"></script>
-    </body>
+  <head>
+    <meta charset="utf-8" />
+    <title>AC Rules</title>
+    <link href="tabulator.css" rel="stylesheet" />
+    <link href="options.css" rel="stylesheet" />
+  </head>
+  <body>
+    <p></p>
+    <fieldset>
+      <button id="addbtn" title="create a new empty rule">&#10039; New</button>
+      <button id="delbtn" title="delete selected rules">&#10005; Delete</button>
+      <button id="ablebtn" title="invert the enabled state of selected rules">
+        &#8652; State
+      </button>
+      <button id="impbtn_wrapper" title="import rules from a file to add">
+        &darr; Import
+      </button>
+      <input id="impbtn" type="file" value="" style="display: none" />
+      <button id="expbtn" title="export selected rules">&uarr; Export</button>
+      <button id="savbtn" title="save changes">&#10003; Save</button>
+      <button id="discbtn" title="discard changes">&#9888; Discard</button>
+      <div style="float: right">
+        <button id="tgladv" title="toggle options">&#9881; Options</button>
+        <a
+          target="_blank"
+          href="https://github.com/igorlogius/automate-click/wiki/Basic-Usage"
+        >
+          <button>&#8505; Help</button></a
+        >
+      </div>
+    </fieldset>
+    <p></p>
+    <table id="mainTable" border="1" style="width: 100%; height: 80vh"></table>
+    <span>Columns marked with (*) are required</span>
+    <script src="tabulator.js"></script>
+    <script src="options.js"></script>
+  </body>
 </html>
