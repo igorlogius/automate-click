@@ -1,7 +1,7 @@
 This add-on can automate click actions that users might have to perform when visiting a website. For example accept or reject cookie consent messages.
 
 
-
+<b>Short Demo Video:</b>
 https://github.com/igorlogius/automate-click/assets/67047467/915c33a3-8b12-4bc2-a6f3-628b8c913e6c
 
 
