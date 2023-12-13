@@ -5,16 +5,16 @@ This add-on can automate click actions that users might have to perform when vis
 https://github.com/igorlogius/automate-click/assets/67047467/915c33a3-8b12-4bc2-a6f3-628b8c913e6c
 
 
-<b>Q:</b> Why/When should i use this add-on and not "I don't care about cookies".
+<b>Q:</b> Why/When should i use this add-on and not "I (still) don't care about cookies".
 <ol>
 <li>
-<b>A:</b> If the consent message you want to get rid of is not covered by "IDCAC" .  
+<b>A:</b> If the consent message you want to get rid of is not covered by "I(S)DCAC" .  
 </li>
 <li>
 <b>A:</b> If you want to automate clicks on other things than (just) cookie consent messages. 
 </li>
 <li>
-<b>A:</b> If the usage of "IDCAC" breaks the website functionality. AC might be an alternativ since it is  less invasiv in terms of how it operates  (for example it doesnt  block webrequests) 
+<b>A:</b> If the usage of "I(S)DCAC" breaks the website functionality. AC might be an alternativ since it is  less invasiv in terms of how it operates  (for example it doesnt  block webrequests) 
 </li>
 <li>
 <b>A:</b> If you want an addon which requires as few addons permissions as necessary to to get the job done. 
