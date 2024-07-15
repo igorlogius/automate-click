@@ -22,38 +22,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
       # Runs a set of commands using the runners shell
       - name: run build script
         env:
           ISSUER: ${{secrets.ISSUER}}
           SECRET: ${{secrets.SECRET}}
         run: curl 'https://raw.githubusercontent.com/igorlogius/meta-addon-builder/main/README' | sh
-        
-      - name: create release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        with:
-          tag_name: ${{env.ARTNAME}}
-          release_name: ${{env.ARTNAME}}
-          draft: false
-          prerelease: false
-          
-      - name: upload release asset
-        id: upload-release-asset 
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        with:
-          # pulls from CREATE RELEASE step, refs it's ID to get its outputs, which include `upload_url`.
-          # ref: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          upload_url: ${{ steps.create_release.outputs.upload_url }}           
-          asset_path: ./${{env.ARTNAME}}
-          asset_name:  ${{env.ARTNAME}}
-          asset_content_type: application/zip  
 
-          
-          
