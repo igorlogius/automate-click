@@ -1,7 +1,7 @@
 This add-on can automate click actions that users might have to perform when
 visiting a website. For example accept or reject cookie consent messages.
 
-[![](https://raw.githubusercontent.com/igorlogius/igorlogius/main/geFxAddon.png)](https://addons.mozilla.org/en-US/firefox/addon/copy-tabs/)
+[![](https://raw.githubusercontent.com/igorlogius/igorlogius/main/geFxAddon.png)](https://addons.mozilla.org/en-US/firefox/addon/automate-click/)
 
 ### [Click here to report a bug, make a suggestion or ask a question](https://github.com/igorlogius/igorlogius/issues/new/choose)
 
